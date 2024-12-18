@@ -1,26 +1,40 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
-
-export const Colors = {
-  light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
-  },
-  dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
-  },
-};
+interface ThemeColors {
+    background: string;
+    primary: string;
+    secondary: string;
+    accent: string; 
+    textPrimary: string;
+    textSecondary: string; 
+    cardBackground: string;
+    error: string;
+    border: string;
+  }
+  
+  // Definizione dei temi
+  const lightTheme:ThemeColors = {
+    background: "#edf2f4", // Sfondo tema chiaro
+    primary: "#3D5A80",    // Colore primario
+    secondary: "#98C1D9",  // Colore secondario
+    accent: "#0496ff",     // Colore di accento
+    textPrimary: "#293241", // Testo principale
+    textSecondary: "rgba(41, 50, 65, 0.7)", // Testo secondario
+    cardBackground: "#00072d", // Sfondo delle card o superfici secondarie
+    error: "#EE6C4D",       // Colore per errori
+    border: "#d9d9d9",      // Colore dei bordi
+  };
+  
+  const darkTheme:ThemeColors = {
+    background: "#edf2f4", // Sfondo tema chiaro
+    primary: "#3D5A80",    // Colore primario
+    secondary: "#98C1D9",  // Colore secondario
+    accent: "#0496ff",     // Colore di accento
+    textPrimary: "#293241", // Testo principale
+    textSecondary: "rgba(41, 50, 65, 0.7)", // Testo secondario
+    cardBackground: "#00072d", // Sfondo delle card o superfici secondarie
+    error: "#EE6C4D",       // Colore per errori
+    border: "#d9d9d9",      // Colore dei bordi
+  };
+  
+  
+  export { ThemeColors, lightTheme, darkTheme }; 
