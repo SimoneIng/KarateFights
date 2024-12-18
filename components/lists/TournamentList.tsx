@@ -1,9 +1,9 @@
-import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
-import React, { FC } from 'react';
-import { Link, router } from 'expo-router';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { Tournament } from '@/database/types';
 import { useTheme } from '@/context/ThemeProvider';
+import { FlashList } from '@shopify/flash-list';
 
 interface TournamentsListProps {
   tournaments: Tournament[]; 
@@ -20,7 +20,10 @@ const TorunamentCard = ({ tournament, onPress }:TournamentItemProps) => {
     const { theme } = useTheme(); 
 
     return (
-        <TouchableOpacity onPress={() => onPress(tournament.id)} style={[styles.tournamentCard, {backgroundColor: theme.cardBackground}]}>
+        <TouchableOpacity
+         onPress={() => onPress(tournament.id)} 
+         style={[styles.tournamentCard, {backgroundColor: theme.cardBackground}]}
+        >
             <View style={styles.container}>
                 <Text style={[styles.title, {color: '#fff'}]}>{tournament.name}</Text>
                 <Text style={[styles.subTitle, {color: '#ccc'}]}>{tournament.date}</Text>
@@ -35,13 +38,14 @@ const TournamentList = ({ tournaments, onSelectedTournament }:TournamentsListPro
     const { theme } = useTheme(); 
 
     return (
-        <FlatList 
+        <FlashList
             data={tournaments}
             contentContainerStyle={styles.contentContainer}
             renderItem={({item}) => <TorunamentCard tournament={item} onPress={() => onSelectedTournament(item.id)} />}
             keyExtractor={item => item.id.toString()}
             showsVerticalScrollIndicator={false}
             alwaysBounceVertical={true}
+            estimatedItemSize={86}
             
             ListEmptyComponent={() => (
                 <View style={styles.emptyContainer}>

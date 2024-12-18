@@ -1,7 +1,8 @@
 import React from "react";
-import { FlatList, TouchableOpacity, Text, StyleSheet } from "react-native";
+import { TouchableOpacity, Text, StyleSheet } from "react-native";
 import { Athlete } from "@/database/types";
 import { useTheme } from "@/context/ThemeProvider";
+import { FlashList } from "@shopify/flash-list";
 
 interface SelectableAthletesListProps {
   athletes: Athlete[];
@@ -36,12 +37,13 @@ const SelectableAthletesList = ({ athletes, onToggleSelection, selectedAthletes 
   };
 
   return (
-    <FlatList
+    <FlashList
       data={athletes}
       showsVerticalScrollIndicator={false}
       keyExtractor={(item) => item.AthleteId.toString()}
       renderItem={renderItem}
       contentContainerStyle={styles.listContainer}
+      estimatedItemSize={50}
     />
   );
 };

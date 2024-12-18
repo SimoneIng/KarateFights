@@ -1,9 +1,9 @@
-import { View, Text, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
-import React, { FC } from 'react';
-import { Link, router } from 'expo-router';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { Athlete } from '@/database/types';
 import { useTheme } from '@/context/ThemeProvider';
+import { FlashList } from '@shopify/flash-list';
 
 interface AthletesListProps {
   athletes: Athlete[]; 
@@ -20,7 +20,10 @@ const AthleteCard = ({ athlete, onPress }:AthleteItemProps) => {
     const { theme } = useTheme(); 
 
     return (
-        <TouchableOpacity onPress={() => onPress(athlete.AthleteId)} style={[styles.athleteCard, {backgroundColor: theme.cardBackground}]}>
+        <TouchableOpacity 
+            onPress={() => onPress(athlete.AthleteId)} 
+            style={[styles.athleteCard, {backgroundColor: theme.cardBackground}]}
+        >
             <Text style={[styles.athleteName, {color: '#fff'}]}>
                 {athlete.firstname + " " + athlete.lastname}
             </Text>
@@ -34,12 +37,13 @@ const AthletesList = ({ athletes, onSelectedAthlete }:AthletesListProps) => {
     const { theme } = useTheme(); 
 
     return (
-        <FlatList 
+        <FlashList 
             data={athletes}
             contentContainerStyle={styles.contentContainer}
             renderItem={({item}) => <AthleteCard athlete={item} onPress={() => onSelectedAthlete(item.AthleteId)} />}
             keyExtractor={item => item.AthleteId.toString()}
             showsVerticalScrollIndicator={false}
+            estimatedItemSize={64}
             
             ListEmptyComponent={() => (
                 <View style={styles.emptyContainer}>

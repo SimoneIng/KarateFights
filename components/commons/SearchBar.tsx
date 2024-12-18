@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
     flex: 1,
     marginLeft: 8,
     fontSize: 16,
+    height: 35
   },
 });
 

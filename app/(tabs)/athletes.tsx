@@ -44,7 +44,7 @@ const Athletes = () => {
   }, [athletes]);
 
   {/* Bottom Sheet */}
-  const snapPoints = useMemo(() => ['75%'], []); 
+  const snapPoints = useMemo(() => ['90%'], []); 
 
   const renderBackdrop = useCallback((props: any) => 
     <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props} />

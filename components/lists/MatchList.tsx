@@ -1,9 +1,9 @@
-import { FlatList, TouchableOpacity, View, Text, StyleSheet } from 'react-native'
+import { TouchableOpacity, View, Text, StyleSheet } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/context/ThemeProvider';
 import { MatchWithAthletes } from '@/database/types'
-import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
+import { FlashList } from '@shopify/flash-list';
 
 interface MatchesListProps {
   matches: MatchWithAthletes[]; 
@@ -21,7 +21,10 @@ const MatchCard = ({match, onPress}: MatchItemProps) => {
   const { theme } = useTheme(); 
 
   return (
-      <TouchableOpacity onPress={() => onPress(match.id)} style={[styles.MatchCard, {backgroundColor: theme.cardBackground}]}>   
+      <TouchableOpacity
+       onPress={() => onPress(match.id)} 
+       style={[styles.MatchCard, {backgroundColor: theme.cardBackground}]}
+      >   
           <View style={styles.matchSection}>
               <View style={{
                 flexDirection: 'row', gap: 2, alignItems: 'center'
@@ -51,13 +54,14 @@ const MatchList = ({ matches, onSelectedMatch }: MatchesListProps) => {
   const { theme } = useTheme();
 
   return (
-    <FlatList
+    <FlashList
       data={matches}
       contentContainerStyle={styles.contentContainer}
       renderItem={({item}) => <MatchCard match={item} onPress={() => onSelectedMatch(item.id)} />}
       keyExtractor={item => item.id.toString()}
       showsVerticalScrollIndicator={false}
       alwaysBounceVertical={true}
+      estimatedItemSize={90}
       
       ListEmptyComponent={() => (
           <View style={styles.emptyContainer}>

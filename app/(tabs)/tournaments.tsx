@@ -50,7 +50,7 @@ const Tournaments = () => {
   }, []);
 
   {/* Bottom Sheet */}
-  const snapPoints = useMemo(() => ['75%'], []); 
+  const snapPoints = useMemo(() => ['90%'], []); 
 
   const renderBackdrop = useCallback((props: any) => 
     <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props} />
@@ -72,7 +72,6 @@ const Tournaments = () => {
       <SearchBar onSearch={(searchString) => {
         filterTournaments(searchString); 
       }} />
-      <Text>{string}</Text>
       <CustomButton 
         title='Aggiungi Gara' 
         iconName="add-circle-outline" 
