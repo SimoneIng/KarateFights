@@ -18,21 +18,15 @@ const Tournaments = () => {
 
   const [tournaments, setTournaments] = useState<Tournament[]>([]);
   const [filteredTournaments, setFilteredTournaments] = useState<Tournament[]>([]); 
-  const [string, setString] =  useState('');
-
-  // Funzione per caricare i tornei
-  const loadTournaments = useCallback(() => {
-    getTournaments()
-      .then(response => {
-        setTournaments(response);
-        setFilteredTournaments(response);
-      })
-      .catch(error => Alert.alert("Errore", error));
-  }, [getTournaments]);
 
   useEffect(() => {
-    loadTournaments(); // Carica i tornei inizialmente
-  }, [loadTournaments]);
+    getTournaments().then(response => {
+      setTournaments(response)
+      setFilteredTournaments(response)
+    }).catch(error => {
+      Alert.alert("Errore", error); 
+    })
+  }, [tournaments]);
 
   const filterTournaments = useCallback((searchString: string) => {
     if (!searchString.trim()) {
@@ -45,9 +39,9 @@ const Tournaments = () => {
     setFilteredTournaments(filtered);
   }, [tournaments]);
 
-  const handleTournamentSelection = useCallback((id: number) => {
+  const handleTournamentSelection = (id: number) => {
     router.navigate(`/tournament/${id.toString()}`); 
-  }, []);
+  }
 
   {/* Bottom Sheet */}
   const snapPoints = useMemo(() => ['90%'], []); 
@@ -64,14 +58,15 @@ const Tournaments = () => {
 
   const handleCloseModal = () => {
     bottomSheetModalRef.current?.dismiss();
-    loadTournaments(); // Ricarica i tornei dopo l'inserimento
   }
 
   return (
     <View style={[styles.container, {backgroundColor: theme.background}]}>
+      
       <SearchBar onSearch={(searchString) => {
         filterTournaments(searchString); 
       }} />
+
       <CustomButton 
         title='Aggiungi Gara' 
         iconName="add-circle-outline" 

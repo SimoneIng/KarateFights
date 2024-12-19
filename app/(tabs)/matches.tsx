@@ -42,13 +42,18 @@ const Matches = () => {
 
   return (
     <View style={[styles.container, {backgroundColor: theme.background}]}>
-      <SearchBar onSearch={filterMatches} />
+      
+      <SearchBar 
+        onSearch={filterMatches} 
+      />
+
       <CustomButton 
         title='Aggiungi Incontro' 
         iconName="add-circle-outline" 
         handlePress={handleNewMatchPressButton} 
       />
-    <MatchList matches={filteredMatches} onSelectedMatch={handleMatchSelection} />
+
+      <MatchList matches={filteredMatches} onSelectedMatch={handleMatchSelection} />
 
       <StatusBar style={isDark ? 'light' : 'dark'} />
     </View>

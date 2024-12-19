@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
-    "scheme": "Karate Fightings",
+    "scheme": ["karatefightings"],
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -47,6 +47,12 @@
       "eas": {
         "projectId": "070b611c-275e-4edb-b13a-b51c90e7b3ed"
       }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/070b611c-275e-4edb-b13a-b51c90e7b3ed"
     }
   }
 }
