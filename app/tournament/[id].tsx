@@ -1,6 +1,5 @@
-import { View, Text, Pressable, StyleSheet, ActivityIndicator, ScrollView, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { useMatches, useTournaments } from '@/database/hooks'
 import { MatchWithAthletes, Tournament } from '@/database/types';
 import { router, useLocalSearchParams } from 'expo-router';
 import { useTheme } from '@/context/ThemeProvider';
@@ -9,13 +8,13 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import CustomButton from '@/components/commons/CustomButton';
 import { showMessage } from 'react-native-flash-message';
+import { useDatabaseStore } from '@/context/DatabaseProvider';
 
 const TournamentDetailPage = () => {
 
-  const { getTournamentById, deleteTournament } = useTournaments(); 
-  const { getMatchesByTournament } = useMatches();
+  const { tournaments, matches, deleteTournament } = useDatabaseStore(); 
   const [tournament, setTournament] = useState<Tournament | null>(null); 
-  const [matches, setMatches] = useState<MatchWithAthletes[]>([]); 
+  const [tournamentMatches, setTournamentMatches] = useState<MatchWithAthletes[]>([]); 
 
   const { theme } = useTheme(); 
   const { top } = useSafeAreaInsets(); 
@@ -25,13 +24,15 @@ const TournamentDetailPage = () => {
 
 
   useEffect(() => {
-    getTournamentById(parseInt(tournamentId))
-     .then(result => setTournament(result))
-     .catch(error => alert(error))
+    const tourn = tournaments.find(tournament => tournament.id === parseInt(tournamentId))
+    const matcs = matches.filter(match => match.tournamentId === parseInt(tournamentId))
 
-    getMatchesByTournament(parseInt(tournamentId))
-      .then(result => setMatches(result))
-      .catch(error => alert(error)); 
+    if(tourn !== undefined && matcs !== undefined){
+      setTournament(tourn)
+      setTournamentMatches(matcs)
+    } else {
+      router.back() 
+    }
 
   }, []); 
 
@@ -88,9 +89,9 @@ const TournamentDetailPage = () => {
         <Text style={[styles.submainLabel, {color: theme.textSecondary}]} >{tournament?.date}</Text>
       </View>
       {/* Lista incontri con scroll orizzontale */}
-      <View style={{gap: 10}}>
+      <View style={{gap: 10, flex: 1}}>
         <CustomButton title='Aggiungi Incontro' handlePress={handleNewMatch} iconName='add-circle-outline' />
-        <MatchList matches={matches} onSelectedMatch={handleNewMatch} />
+        <MatchList matches={tournamentMatches} onSelectedMatch={handleNewMatch} />
       </View>
     </View>
     </>

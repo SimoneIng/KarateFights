@@ -7,13 +7,13 @@ import TournamentList from '@/components/lists/TournamentList';
 import { Tournament } from '@/database/types';
 import { useTournaments } from '@/database/hooks';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { useDatabaseStore } from '@/context/DatabaseProvider';
 
 const SelectTournamentModalScreen = () => {
 
   const { theme } = useTheme(); 
   const { top } = useSafeAreaInsets(); 
-  const { getTournaments } = useTournaments(); 
-  const [tournaments, setTournaments] = useState<Tournament[]>([]); 
+  const { tournaments } = useDatabaseStore(); 
 
   const handleSelectedTournament = (id: number) => {
     const tournament = tournaments.find(item => item.id === id)
@@ -29,12 +29,6 @@ const SelectTournamentModalScreen = () => {
       })
     }
   }
-
-  useEffect(() => {
-    getTournaments().then(response => {
-      setTournaments(response)
-    }).catch(error => { Alert.alert("Errore", error); router.back() })
-  })
 
   return (
     <View style={[styles.container, {paddingTop: top+10, backgroundColor: theme.background}]}>

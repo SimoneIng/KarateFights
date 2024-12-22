@@ -1,4 +1,4 @@
-import { View, StyleSheet, Alert } from 'react-native'
+import { View, StyleSheet, Text } from 'react-native'
 import React, { useState, useCallback, useEffect } from 'react'
 import { useTheme } from '@/context/ThemeProvider'
 import SearchBar from '@/components/commons/SearchBar';
@@ -8,21 +8,34 @@ import MatchList from '@/components/lists/MatchList';
 import { MatchWithAthletes } from '@/database/types';
 import { router } from 'expo-router';
 import { useMatches } from '@/database/hooks';
+import { useDatabaseStore } from '@/context/DatabaseProvider';
 
 const Matches = () => {
   
   const { theme, isDark } = useTheme(); 
-  const { getMatchesWithDetails } = useMatches(); 
+  const { matches, isLoadingMatches } = useDatabaseStore() 
 
-  const [matches, setMatches] = useState<MatchWithAthletes[]>([]); 
   const [filteredMatches, setFilteredMatches] = useState<MatchWithAthletes[]>([]); 
+
+  useEffect(() => {
+    if(!isLoadingMatches){
+      setFilteredMatches(matches)
+    }
+  }, [isLoadingMatches]);
 
   const filterMatches = useCallback((searchString: string) => {
     if (!searchString.trim()) {
       setFilteredMatches(matches);
       return;
     }
-    // Filtrare
+    const filter = matches.filter(match => 
+      match.akaAthlete.firstname.toLowerCase().includes(searchString.toLowerCase()) ||
+      match.akaAthlete.lastname.toLowerCase().includes(searchString.toLowerCase()) || 
+      match.aoAthlete.firstname.toLowerCase().includes(searchString.toLowerCase()) ||
+      match.aoAthlete.lastname.toLowerCase().includes(searchString.toLowerCase())
+    )
+    console.log(filter)
+    setFilteredMatches(filter)
   }, [filteredMatches]);
 
   const handleNewMatchPressButton = () => {
@@ -31,14 +44,7 @@ const Matches = () => {
 
   const handleMatchSelection = (id: number) => {
     router.push(`/match/${id.toString()}`)
-  }
-
-  useEffect(() => {
-    getMatchesWithDetails().then(response => {
-      setMatches(response)
-      setFilteredMatches(response)
-    }).catch(error => Alert.alert("Errore", error))
-  }, [matches]); 
+  } 
 
   return (
     <View style={[styles.container, {backgroundColor: theme.background}]}>

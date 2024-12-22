@@ -8,6 +8,7 @@ import Divider from '@/components/commons/Divider';
 import { useForm, Controller } from 'react-hook-form';
 import { useTheme } from '@/context/ThemeProvider';
 import { showMessage } from "react-native-flash-message";
+import { useDatabaseStore } from '@/context/DatabaseProvider';
 
 type FormData = {
   features: string;
@@ -15,7 +16,7 @@ type FormData = {
 };
 
 const AthleteDetailPage = () => {
-  const { getAthleteById, updateAthlete, deleteAthlete } = useAthletes();
+  const { athletes, updateAthlete, deleteAthlete } = useDatabaseStore();
   const [athlete, setAthlete] = useState<Athlete | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const { id } = useLocalSearchParams();
@@ -31,17 +32,12 @@ const AthleteDetailPage = () => {
   const { theme } = useTheme(); 
 
   useEffect(() => {
-    getAthleteById(parseInt(athleteId))
-      .then(result => {
-        if(result != null){
-          setAthlete(result);
-          reset({
-            features: result.features,
-            tactics: result.tactics
-          });
-        }
-      })
-      .catch(error => alert(error));
+    const ath = athletes.find(athlete => athlete.AthleteId === parseInt(athleteId))
+    if(ath !== undefined){
+      setAthlete(ath)
+    } else {
+      router.back()
+    }
   }, []);
 
   const onSubmit = async (data: FormData) => {

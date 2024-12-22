@@ -4,6 +4,7 @@ import { useTheme } from '@/context/ThemeProvider'
 import SignInHeader from '@/components/headers/SignInHeader'
 import { StatusBar } from 'expo-status-bar'
 import * as NavigationBar from 'expo-navigation-bar'
+import { Platform } from 'react-native'
 
 const AuthLayoutStack = () => {
 
@@ -30,9 +31,11 @@ const AuthLayout = () => {
 
   const { theme, isDark } = useTheme();
 
-  useEffect(() => {
-    NavigationBar.setBackgroundColorAsync(theme.background)
-  })
+    useEffect(() => {
+      if(Platform.OS === 'android'){
+        NavigationBar.setBackgroundColorAsync(theme.background)
+      }
+    }, [])
 
   return (
     <>

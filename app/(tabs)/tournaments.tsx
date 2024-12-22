@@ -10,23 +10,20 @@ import TournamentList from '@/components/lists/TournamentList';
 import { router } from 'expo-router';
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'; 
 import NewTournamentForm from '@/components/forms/newTournamentForm';
+import { useDatabaseStore } from '@/context/DatabaseProvider';
 
 const Tournaments = () => {
   
   const { theme, isDark } = useTheme(); 
-  const { getTournaments } = useTournaments(); 
+  const { tournaments, isLoadingTournaments } = useDatabaseStore(); 
 
-  const [tournaments, setTournaments] = useState<Tournament[]>([]);
   const [filteredTournaments, setFilteredTournaments] = useState<Tournament[]>([]); 
 
   useEffect(() => {
-    getTournaments().then(response => {
-      setTournaments(response)
-      setFilteredTournaments(response)
-    }).catch(error => {
-      Alert.alert("Errore", error); 
-    })
-  }, [tournaments]);
+    if(!isLoadingTournaments){
+      setFilteredTournaments(tournaments)
+    }
+  }, [isLoadingTournaments]);
 
   const filterTournaments = useCallback((searchString: string) => {
     if (!searchString.trim()) {

@@ -3,12 +3,13 @@ import { SplashScreen, Stack } from 'expo-router';
 import { ThemeProvider, useTheme } from '@/context/ThemeProvider';
 import { useFonts } from 'expo-font'; 
 import { SessionProvider } from '@/context/SessionProvider';
-import { SQLiteProvider } from 'expo-sqlite';
-import { setupQueries } from '@/database/Database';
+import { initializeDatabase } from '@/database/Database';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import AthleteHeader from '@/components/headers/AthleteHeader';
 import FlashMessage from "react-native-flash-message";
+import { Alert } from 'react-native';
+import { useDatabaseStore } from '@/context/DatabaseProvider';
 
 SplashScreen.preventAutoHideAsync(); 
 
@@ -59,6 +60,8 @@ const StackLayout = () => {
 
 const RootLayout = () => {
 
+  const { fetchAthletes, fetchMatches, fetchTournaments } = useDatabaseStore()
+
   const [loaded] = useFonts({
     'RobotoExtraLight': require('../assets/fonts/RobotoMono-ExtraLight.ttf'),  
     'RobotoLigtht': require('../assets/fonts/RobotoMono-Light.ttf'), 
@@ -66,6 +69,21 @@ const RootLayout = () => {
     'RobotoMedium': require('../assets/fonts/RobotoMono-Medium.ttf'), 
     'RobotoBold': require('../assets/fonts/RobotoMono-Bold.ttf'), 
   }); 
+
+  useEffect(() => {
+    const setupDatabase = async () => {
+      try {
+        await initializeDatabase()
+        await fetchAthletes() 
+        await fetchTournaments()
+        await fetchMatches() 
+      } catch(error) { 
+        console.log(error)
+        Alert.alert("Errore", error as string)
+      }
+    }
+    setupDatabase()
+  }, [])
 
   useEffect(() => {
     if(loaded){
@@ -78,13 +96,6 @@ const RootLayout = () => {
   }
 
   return (
-    <SQLiteProvider 
-    databaseName='KarateFightsDB.db' 
-    onInit={async (db) => {
-      for(const query of setupQueries){
-        await db.execAsync(query); 
-        }
-    }}>
     <SessionProvider>
     <ThemeProvider>
     <GestureHandlerRootView>
@@ -97,7 +108,6 @@ const RootLayout = () => {
     </GestureHandlerRootView>
     </ThemeProvider>
     </SessionProvider>
-    </SQLiteProvider>
   )
 }
 

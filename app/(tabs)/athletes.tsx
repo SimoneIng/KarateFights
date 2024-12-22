@@ -7,17 +7,15 @@ import AthletesList from '@/components/lists/AthleteList';
 import { router } from 'expo-router';
 import { Athlete } from '@/database/types';
 import CustomButton from '@/components/commons/CustomButton';
-import { useAthletes } from '@/database/hooks';
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'; 
-import NewAthleteForm from '@/components/forms/NewAthleteForm';
-
+import NewAthleteForm from '@/components/forms/NewAthleteForm'; 
+import { useDatabaseStore } from '@/context/DatabaseProvider';
 
 const Athletes = () => {
   // 1. Hooks al livello più alto
   const { theme, isDark } = useTheme(); 
-  const { getAthletes } = useAthletes(); 
+  const { athletes, isLoadingAthletes } = useDatabaseStore()
 
-  const [athletes, setAthletes] = useState<Athlete[]>([]);
   const [filteredAthletes, setFilteredAthletes] = useState<Athlete[]>([]);  
 
   const filterAthletes = useCallback((searchString: string) => {
@@ -27,7 +25,8 @@ const Athletes = () => {
     }
     const filtered = athletes.filter(athlete => 
       // implementa la tua logica di filtro qui
-      athlete.firstname.toLowerCase().includes(searchString.toLowerCase())
+      athlete.firstname.toLowerCase().includes(searchString.toLowerCase()) || 
+      athlete.lastname.toLowerCase().includes(searchString.toLowerCase())
     );
     setFilteredAthletes(filtered);
   }, [athletes]);
@@ -37,11 +36,10 @@ const Athletes = () => {
   }, []);
 
   useEffect(() => {
-    getAthletes().then(response => {
-      setAthletes(response)
-      setFilteredAthletes(response)
-    }).catch(error => Alert.alert("Errore", error)); 
-  }, [athletes]);
+    if(!isLoadingAthletes){
+      setFilteredAthletes(athletes)
+    }
+  }, [isLoadingAthletes])
 
   {/* Bottom Sheet */}
   const snapPoints = useMemo(() => ['90%'], []); 

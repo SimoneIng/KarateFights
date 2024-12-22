@@ -1,12 +1,19 @@
-import { useSQLiteContext } from 'expo-sqlite';
+import * as SQLite from 'expo-sqlite';
 import { Athlete, Match, Tournament, MatchWithAthletes } from './types';
+
+const DB_NAME = "KarateFightsDB";
+
+const openDatabase = async () => {
+  const db = await SQLite.openDatabaseAsync(DB_NAME)
+  return db; 
+}
 
 // Athletes Hook
 export function useAthletes() {
-  const db = useSQLiteContext();
 
   const getAthletes = async (): Promise<Athlete[]> => {
     try {
+      const db = await openDatabase();
       return await db.getAllAsync<Athlete>(
         'SELECT * FROM Athlete ORDER BY lastname, firstname'
       );
@@ -18,6 +25,7 @@ export function useAthletes() {
 
   const getAthleteById = async (athleteId: number): Promise<Athlete | null> => {
     try {
+      const db = await openDatabase();
       return await db.getFirstAsync<Athlete>(
         'SELECT * FROM Athlete WHERE AthleteId = ?',
         [athleteId]
@@ -30,6 +38,7 @@ export function useAthletes() {
 
   const addAthlete = async (firstname: string, lastname: string): Promise<number> => {
     try {
+      const db = await openDatabase();
       const result = await db.runAsync(
         'INSERT INTO Athlete (firstname, lastname) VALUES (?, ?)',
         [firstname, lastname]
@@ -47,6 +56,7 @@ export function useAthletes() {
     tactics: string
   ): Promise<void> => {
     try {
+      const db = await openDatabase();
       await db.runAsync(
         'UPDATE Athlete SET features = ?, tactics = ? WHERE AthleteId = ?',
         [features, tactics, athleteId]
@@ -59,6 +69,7 @@ export function useAthletes() {
 
   const deleteAthlete = async (athleteId: number): Promise<void> => {
     try {
+      const db = await openDatabase();
       await db.runAsync('BEGIN TRANSACTION');
       
       // Controlla se l'atleta ha match associati
@@ -74,6 +85,7 @@ export function useAthletes() {
       await db.runAsync('DELETE FROM Athlete WHERE AthleteId = ?', [athleteId]);
       await db.runAsync('COMMIT');
     } catch (error) {
+      const db = await openDatabase();
       await db.runAsync('ROLLBACK');
       console.error('Error deleting athlete:', error);
       throw error;
@@ -86,6 +98,7 @@ export function useAthletes() {
     totalPoints: number;
   }> => {
     try {
+      const db = await openDatabase();
       const stats = await db.getFirstAsync<{
         totalMatches: number;
         wins: number;
@@ -120,6 +133,7 @@ export function useAthletes() {
 
   const getAthleteId = async (athleteFirstname: string, athleteLastname: string): Promise<number | null> => {
     try {
+      const db = await openDatabase();
       return await db.getFirstAsync<number>(
         "SELECT AthleteId FROM Athlete WHERE firstname = ? AND lastname = ?", 
         [athleteFirstname, athleteLastname]
@@ -143,10 +157,10 @@ export function useAthletes() {
 
 // Matches Hook
 export function useMatches() {
-  const db = useSQLiteContext();
 
   const getMatchById = async (matchId: number): Promise<MatchWithAthletes | null> => {
     try {
+      const db = await openDatabase();
       const match = await db.getFirstAsync<MatchWithAthletes & {
         aoAthleteId: number, aoFirstname: string, aoLastname: string, aoFeatures: string, aoTactics: string,
         akaAthleteId: number, akaFirstname: string, akaLastname: string, akaFeatures: string, akaTactics: string,
@@ -205,6 +219,7 @@ export function useMatches() {
   const getMatchesWithDetails = async (): Promise<MatchWithAthletes[]> => {
     try {
       // Fetch flat results from the database
+      const db = await openDatabase();
       const results = await db.getAllAsync<{
         id: number;
         tournamentId: number;
@@ -350,6 +365,7 @@ export function useMatches() {
 
   const getMatchesByTournament = async (tournamentId: number): Promise<MatchWithAthletes[]> => {
     try {
+      const db = await openDatabase();
       const matches = await db.getAllAsync<MatchWithAthletes>(
         `
         SELECT 
@@ -400,6 +416,7 @@ export function useMatches() {
 
   const addMatch = async (match: Omit<Match, 'id'>): Promise<number> => {
     try {
+      const db = await openDatabase();
       const result = await db.runAsync(`
         INSERT INTO Match (
           tournamentId, aoAthleteId, akaAthleteId,
@@ -437,6 +454,7 @@ export function useMatches() {
         .filter(([key]) => key !== 'id')
         .map(([_, value]) => value);
 
+      const db = await openDatabase();
       await db.runAsync(
         `UPDATE Match SET ${sets} WHERE id = ?`,
         [...values, matchId]
@@ -449,6 +467,7 @@ export function useMatches() {
 
   const deleteMatch = async (matchId: number): Promise<void> => {
     try {
+      const db = await openDatabase();
       await db.runAsync('DELETE FROM Match WHERE id = ?', [matchId]);
     } catch (error) {
       console.error('Error deleting match:', error);
@@ -458,6 +477,7 @@ export function useMatches() {
 
   const getMatchesByAthleteId = async (athleteId: number): Promise<MatchWithAthletes[]> => {
     try {
+      const db = await openDatabase();
       const matches = await db.getAllAsync<MatchWithAthletes>(
         `
         SELECT 
@@ -519,10 +539,10 @@ export function useMatches() {
 
 // Tournaments Hook
 export function useTournaments() {
-  const db = useSQLiteContext();
 
   const getTournaments = async (): Promise<Tournament[]> => {
     try {
+      const db = await openDatabase();
       return await db.getAllAsync<Tournament>(
         'SELECT * FROM Tournament ORDER BY date DESC'
       );
@@ -534,6 +554,7 @@ export function useTournaments() {
 
   const getTournamentById = async (id: number): Promise<Tournament | null> => {
     try {
+      const db = await openDatabase();
       return await db.getFirstAsync<Tournament>(
         'SELECT * FROM Tournament WHERE id = ?',
         [id]
@@ -546,6 +567,7 @@ export function useTournaments() {
 
   const addTournament = async (name: string, date: string): Promise<number> => {
     try {
+      const db = await openDatabase();
       const result = await db.runAsync(
         'INSERT INTO Tournament (name, date) VALUES (?, ?)',
         [name, date]
@@ -563,6 +585,7 @@ export function useTournaments() {
     date: string
   ): Promise<void> => {
     try {
+      const db = await openDatabase();
       await db.runAsync(
         'UPDATE Tournament SET name = ?, date = ? WHERE id = ?',
         [name, date, id]
@@ -575,6 +598,7 @@ export function useTournaments() {
 
   const deleteTournament = async (id: number): Promise<void> => {
     try {
+      const db = await openDatabase();
       await db.runAsync('BEGIN TRANSACTION');
       
       // Elimina prima tutti i match associati
@@ -585,6 +609,7 @@ export function useTournaments() {
       
       await db.runAsync('COMMIT');
     } catch (error) {
+      const db = await openDatabase();
       await db.runAsync('ROLLBACK');
       console.error('Error deleting tournament:', error);
       throw error;

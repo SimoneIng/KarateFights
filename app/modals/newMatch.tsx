@@ -8,13 +8,14 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '@/context/ThemeProvider';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { showMessage } from 'react-native-flash-message';
+import { useDatabaseStore } from '@/context/DatabaseProvider';
 
 type MatchFormData = Omit<Match, 'id'>;
 
 const NewMatch = () => {
 
     const { tournamentParams, akaParams, aoParams } = useLocalSearchParams(); 
-    const { addMatch } = useMatches(); 
+    const { addMatch } = useDatabaseStore(); 
     const { theme } = useTheme(); 
     const { top } = useSafeAreaInsets();
 

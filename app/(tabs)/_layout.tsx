@@ -1,16 +1,13 @@
 import React, { useEffect } from 'react'
 import { Tabs } from 'expo-router';
-import TabIcon from '@/components/commons/tabIcon';
 import { useTheme } from '@/context/ThemeProvider';
-import ProfileHeader from '@/components/headers/ProfileHeader';
 import TabHeader from '@/components/headers/TabHeader';
 import { StatusBar } from 'expo-status-bar';
 import * as NavigationBar from 'expo-navigation-bar'
 import CustomTabBar from '@/components/CustomTabBar';
+import { Platform } from 'react-native';
 
 const TabsLayoutTabs = () => {
-
-  const { theme } = useTheme(); 
 
   return (
     <Tabs
@@ -40,9 +37,11 @@ const TabsLayout = () => {
 
   const { theme, isDark } = useTheme(); 
 
-    useEffect(() => {
+  useEffect(() => {
+    if(Platform.OS === 'android'){
       NavigationBar.setBackgroundColorAsync(theme.background)
-    })
+    }
+  }, [])
 
   return (
     <>

@@ -7,7 +7,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   Pressable,
-  Image,
 } from 'react-native';
 import { useTournaments } from '@/database/hooks';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
@@ -15,6 +14,7 @@ import { Ionicons } from '@expo/vector-icons';
 import CustomButton from '../commons/CustomButton';
 import { useTheme } from '@/context/ThemeProvider';
 import { showMessage } from 'react-native-flash-message';
+import { useDatabaseStore } from '@/context/DatabaseProvider';
 
 interface Props {
   onClose: () => void; 
@@ -22,7 +22,7 @@ interface Props {
 
 const NewTournamentForm: React.FC<Props> = ({ onClose }) => {
 
-  const { addTournament } = useTournaments(); 
+  const { addTournament } = useDatabaseStore(); 
   const { theme } = useTheme();
 
   const [date, setDate] = useState(new Date()); 

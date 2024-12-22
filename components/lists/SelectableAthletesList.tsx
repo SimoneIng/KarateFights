@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
   athleteItem: {
     padding: 15,
     marginVertical: 5,
-    borderRadius: 8,
+    borderRadius: 10,
     alignItems: "center",
   },
   athleteName: {

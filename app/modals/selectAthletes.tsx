@@ -7,12 +7,12 @@ import { Tournament, Athlete } from '@/database/types';
 import { useAthletes } from '@/database/hooks';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import SelectableAthletesList from '@/components/lists/SelectableAthletesList';
+import { useDatabaseStore } from '@/context/DatabaseProvider';
 
 const SelectAthletes = () => {
   const { theme } = useTheme();
   const { top } = useSafeAreaInsets();
-  const { getAthletes } = useAthletes();
-  const [athletes, setAthletes] = useState<Athlete[]>([]);
+  const { athletes } = useDatabaseStore();
   const [selectedAthletes, setSelectedAthletes] = useState<number[]>([]);
 
   const { tournamentParams } = useLocalSearchParams();
@@ -55,15 +55,6 @@ const SelectAthletes = () => {
   const getAthlete = (id: number): Athlete | undefined => {
     return athletes.find((item) => item.AthleteId === id);
   };
-
-  useEffect(() => {
-    getAthletes()
-      .then((response) => setAthletes(response))
-      .catch((error) => {
-        Alert.alert("Errore", error);
-        router.back();
-      });
-  }, []);
 
   return (
     <View

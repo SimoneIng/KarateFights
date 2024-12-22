@@ -14,6 +14,7 @@ import { useTheme } from '@/context/ThemeProvider';
 import CustomButton from '../commons/CustomButton';
 import { showMessage } from 'react-native-flash-message';
 import { Ionicons } from '@expo/vector-icons';
+import { useDatabaseStore } from '@/context/DatabaseProvider';
 
 
 // Definizione del tipo per i dati del form
@@ -39,7 +40,7 @@ const NewAthleteForm = ({ onClose }: Props) => {
     },
   });
 
-  const { addAthlete } = useAthletes(); 
+  const { addAthlete } = useDatabaseStore(); 
 
   const { theme } = useTheme(); 
 

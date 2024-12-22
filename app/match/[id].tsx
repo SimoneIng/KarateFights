@@ -9,6 +9,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useForm, Controller } from 'react-hook-form';
 import Divider from '@/components/commons/Divider';
 import { showMessage } from "react-native-flash-message";
+import { useDatabaseStore } from '@/context/DatabaseProvider';
 
 type FormData = {
   matchDescription: string; 
@@ -20,7 +21,7 @@ const MatchScreen = () => {
 
   const { theme } = useTheme(); 
   const { top } = useSafeAreaInsets(); 
-  const { getMatchById, updateMatch, deleteMatch } = useMatches(); 
+  const { matches, updateMatch, deleteMatch } = useDatabaseStore(); 
   const { id } = useLocalSearchParams(); 
 
   const matchId = id as string; 
@@ -29,16 +30,12 @@ const MatchScreen = () => {
   const [isEditing, setIsEditing] = useState<Boolean>(false); 
 
   useEffect(() => {
-    getMatchById(parseInt(matchId)).then(response => {
-      if(response === null) {
-        Alert.alert("Errore")
-        router.back(); 
-      }
-      setMatch(response)
-    }).catch(error => {
-      Alert.alert("Errore")
-      router.back(); 
-    })
+    const matc = matches.find(match => match.id === parseInt(matchId))
+    if(matc !== undefined){
+      setMatch(matc)
+    } else {
+      router.back()
+    }
   }, [])
 
 

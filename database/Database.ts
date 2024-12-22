@@ -64,4 +64,17 @@ const setupQueries = [
 
 const destroyQueries = "DROP TABLE IF EXISTS Match; DROP TABLE IF EXISTS Tournament; DROP TABLE IF EXISTS Athlete;";  
 
-export { setupQueries, destroyQueries };
+const initializeDatabase = async () => {
+  try {
+    const db = await SQLite.openDatabaseAsync('KarateFightsDB'); 
+
+    setupQueries.forEach(async query => {
+      await db.execAsync(query)
+    })
+  } catch(error) {
+    throw new Error(error as string)
+}
+}
+
+
+export { initializeDatabase, destroyQueries };
