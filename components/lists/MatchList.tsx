@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
       overflow: 'hidden',
   }, 
   matchLabel: {
-    fontSize: 16, 
+    fontSize: 14, 
     fontFamily: 'RobotoMedium'
   }, 
   matchSubLabel: {

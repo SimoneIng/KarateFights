@@ -118,9 +118,11 @@ const NewMatchForm = ({ tournament, akaAthlete, aoAthlete, onSubmit }: Props) =>
     <KeyboardAvoidingView
     behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
+
       <ScrollView showsVerticalScrollIndicator={false} style={styles.container}>
         {/* Scores Display */}
-        <View style={styles.scoresContainer}>
+
+        <View style={[styles.scoresContainer]}>
           <View style={styles.scoreBox}>
             <Text style={[styles.scoreLabel, {color: theme.textPrimary}]}>{aoAthlete.firstname}</Text>
             <Text style={[styles.scoreLabel, {color: theme.textPrimary}]}>{aoAthlete.lastname}</Text>

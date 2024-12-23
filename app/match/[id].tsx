@@ -265,7 +265,7 @@ const MatchScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 10, 
+    paddingHorizontal: 5, 
     flex: 1, 
     display: 'flex', 
     flexDirection: 'column'
@@ -304,7 +304,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   }, 
   fieldLabel: {
-    fontSize: 18, 
+    fontSize: 16, 
     fontWeight: '500', 
     marginRight: 2,
     fontFamily: 'RobotoBold'

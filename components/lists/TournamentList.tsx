@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     }, 
     title: {
         textAlign: 'center', 
-        fontSize: 18, 
+        fontSize: 16, 
         fontFamily: 'RobotoBold'
     }, 
     subTitle: {

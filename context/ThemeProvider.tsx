@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useColorScheme } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { ThemeColors, lightTheme, darkTheme } from '@/constants/Colors';
 
 interface ThemeContextType {
@@ -34,18 +35,39 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
   initialTheme 
 }) => {
   const systemColorScheme = useColorScheme();
-  const [isDark, setIsDark] = useState(() => {
-    if (initialTheme) {
-      return initialTheme === 'dark';
-    }
-    return systemColorScheme === 'light';
-  });
+  const [isDark, setIsDark] = useState<boolean>(() => false);
 
+  // Chiave per memorizzare il tema in AsyncStorage
+  const THEME_STORAGE_KEY = 'user_theme_preference';
+
+  // Recupera la preferenza del tema al montaggio
   useEffect(() => {
-    if (!initialTheme) {
-      setIsDark(systemColorScheme === 'dark');
-    }
+    const loadThemePreference = async () => {
+      try {
+        const savedTheme = await AsyncStorage.getItem(THEME_STORAGE_KEY);
+        if (savedTheme) {
+          setIsDark(savedTheme === 'dark');
+        } else if (!initialTheme) {
+          setIsDark(systemColorScheme === 'dark');
+        }
+      } catch (error) {
+        console.error('Errore durante il recupero della preferenza del tema:', error);
+      }
+    };
+    loadThemePreference();
   }, [systemColorScheme, initialTheme]);
+
+  // Salva la preferenza del tema ogni volta che cambia
+  useEffect(() => {
+    const saveThemePreference = async () => {
+      try {
+        await AsyncStorage.setItem(THEME_STORAGE_KEY, isDark ? 'dark' : 'light');
+      } catch (error) {
+        console.error('Errore durante il salvataggio della preferenza del tema:', error);
+      }
+    };
+    saveThemePreference();
+  }, [isDark]);
 
   const toggleTheme = () => {
     setIsDark(prev => !prev);

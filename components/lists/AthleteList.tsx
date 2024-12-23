@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     }, 
     athleteName: {
         textAlign: 'center', 
-        fontSize: 18, 
+        fontSize: 16, 
         fontFamily: 'RobotoBold'
     }, 
     contentContainer: {

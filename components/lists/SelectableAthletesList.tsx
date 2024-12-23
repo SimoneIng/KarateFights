@@ -74,7 +74,6 @@ const styles = StyleSheet.create({
     marginVertical: 5,
     borderRadius: 5,
     alignItems: "center",
-    borderWidth: 0.2
   },
   athleteName: {
     fontSize: 16,
