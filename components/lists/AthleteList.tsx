@@ -27,7 +27,7 @@ const AthleteCard = ({ athlete, onPress }:AthleteItemProps) => {
             <Text style={[styles.athleteName, {color: '#fff'}]}>
                 {athlete.firstname + " " + athlete.lastname}
             </Text>
-            <Ionicons name='arrow-forward-circle-outline' size={24} color={theme.accent} />
+            <Ionicons name='arrow-forward-circle-outline' size={24} color='#fff' />
         </TouchableOpacity>
     )
 }

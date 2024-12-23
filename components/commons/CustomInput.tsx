@@ -39,7 +39,7 @@ const CustomInput = ({ name, color, control, fieldName }: Props) => {
                 return (
                     <View style={[styles.mainContainer, {backgroundColor: theme.cardBackground}]}>
                         <View style={styles.labelContainer}>
-                            <Text style={[styles.label, {color: '#ccc'}]}>{name}</Text>
+                            <Text style={[styles.label, {color: '#fff'}]}>{name}</Text>
                             <Ionicons name='ellipse' color={color} size={18} />
                         </View>
                         <View style={styles.inputContainer}>
@@ -49,7 +49,7 @@ const CustomInput = ({ name, color, control, fieldName }: Props) => {
                             >
                                 <Text style={[styles.buttonLabel, {color: '#ccc'}]}>-</Text>
                             </TouchableOpacity>
-                            <Text style={[styles.inputText, {color: '#ccc'}]}>{numericValue}</Text>
+                            <Text style={[styles.inputText, {color: '#fff'}]}>{numericValue}</Text>
                             <TouchableOpacity 
                                 style={[styles.button]} 
                                 onPress={handleAdd}
@@ -73,7 +73,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         flex: 1, 
-        margin: 5
+        margin: 5,
     },
     labelContainer: {
         flexDirection: 'row',

@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '@/context/ThemeProvider';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 
 const MatchHeader = () => {
 
@@ -18,6 +19,7 @@ const MatchHeader = () => {
             <TouchableOpacity>
                 <Ionicons name='trash-bin-outline' size={24} color={theme.error} />
             </TouchableOpacity>
+            <StatusBar style='dark' />
         </View>
     )
 }

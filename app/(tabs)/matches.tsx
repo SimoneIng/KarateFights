@@ -61,7 +61,6 @@ const Matches = () => {
 
       <MatchList matches={filteredMatches} onSelectedMatch={handleMatchSelection} />
 
-      <StatusBar style={isDark ? 'light' : 'dark'} />
     </View>
   )
 }

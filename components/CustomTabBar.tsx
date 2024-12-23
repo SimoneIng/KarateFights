@@ -11,7 +11,7 @@ const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => 
   const { theme } = useTheme(); 
 
   return (
-    <View style={[styles.container]}>
+    <View style={[styles.container, {backgroundColor: theme.cardBackground}]}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const isFocused = state.index === index;
@@ -49,7 +49,7 @@ const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => 
             <Ionicons
               name={getIcon(route.name as RouteNames)}
               size={24}
-              color={isFocused ? theme.accent : '#ccc'}
+              color={isFocused ? theme.accent : '#fff'}
             />
           </TouchableOpacity>
         );
@@ -66,7 +66,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderRadius: 30,
     paddingVertical: 10,
-    backgroundColor: '#00072d',
   },
   tabButton: {
     flex: 1,

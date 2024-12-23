@@ -85,8 +85,6 @@ const Athletes = () => {
         </BottomSheetView>
       </BottomSheetModal>
 
-
-      <StatusBar style={isDark ? 'light' : 'dark'} />
     </View>
   );
 };

@@ -27,7 +27,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
 }) => {
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  const { theme, isDark } = useTheme(); 
+  const { theme } = useTheme(); 
 
   const handleSearch = (text: string) => {
     setSearchQuery(text);
@@ -40,7 +40,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   };
 
   return (
-    <View style={[styles.searchContainer, containerStyle, {backgroundColor: theme.border}]}>
+    <View style={[styles.searchContainer, containerStyle, {backgroundColor: '#ccc'}]}>
       <Ionicons name="search" size={20} color={theme.textPrimary} />
       <TextInput
         style={[styles.input, inputStyle, {color: theme.textPrimary}]}

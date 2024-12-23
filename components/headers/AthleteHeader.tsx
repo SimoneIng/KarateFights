@@ -4,6 +4,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '@/context/ThemeProvider';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { router } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 
 const AthleteHeader = () => {
 
@@ -15,6 +16,7 @@ const AthleteHeader = () => {
             <TouchableOpacity onPress={() => router.back()}>
                 <Ionicons name='arrow-back-outline' size={41} color={theme.textPrimary} />
             </TouchableOpacity>
+            <StatusBar style='dark' />
         </View>
     )
 }

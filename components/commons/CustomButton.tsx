@@ -11,14 +11,12 @@ interface Props {
 
 const CustomButton = ({title, iconName, handlePress}: Props) => {
 
-  const { theme } = useTheme(); 
-
   return (
     <TouchableOpacity 
-      style={[styles.container, {backgroundColor: theme.accent}]} 
+      style={[styles.container, {backgroundColor: '#4361ee'}]} 
       onPress={handlePress}
     >
-      <Text style={[styles.text, {color: '#fff'}]}>{title}</Text> 
+      <Text style={[styles.text, {color: '#fff', fontFamily: 'RobotoMono-Regular'}]}>{title}</Text> 
       <Ionicons name={iconName} size={24} color="#fff" />
     </TouchableOpacity>
   )

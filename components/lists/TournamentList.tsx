@@ -28,7 +28,7 @@ const TorunamentCard = ({ tournament, onPress }:TournamentItemProps) => {
                 <Text style={[styles.title, {color: '#fff'}]}>{tournament.name}</Text>
                 <Text style={[styles.subTitle, {color: '#ccc'}]}>{tournament.date}</Text>
             </View>
-            <Ionicons name='arrow-forward-circle-outline' size={24} color={theme.accent} />
+            <Ionicons name='arrow-forward-circle-outline' size={24} color='#fff' />
         </TouchableOpacity>
     )
 }

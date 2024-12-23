@@ -141,7 +141,10 @@ const MatchScreen = () => {
               <Text style={[styles.label, {color: theme.textSecondary}]}>Data: {match.tournament.date}</Text>
             </View>
 
-            <View style={styles.contentHeader}>
+            <View style={[styles.contentHeader, {
+              padding: 10, 
+              borderRadius: 10
+            }]}>
               <View style={styles.nameContainer}>
                 <Text style={{ color: 'red', fontSize: 16, fontWeight: '600' }}>Aka</Text>
                 <Text style={[styles.fieldLabel, {color: theme.textPrimary}]}>{match.akaAthlete.firstname + " " + match.akaAthlete.lastname}</Text>
@@ -157,7 +160,6 @@ const MatchScreen = () => {
 
             <View style={styles.textContainer}>
               <Text style={[styles.fieldLabel, {color: theme.textPrimary}]}>Descrizione Incontro</Text>
-              <Divider color={theme.textSecondary} width={0.5} />
               {isEditing ? (
                 <Controller
                   control={control}
@@ -181,7 +183,6 @@ const MatchScreen = () => {
 
             <View style={styles.textContainer}>
               <Text style={[styles.fieldLabel, {color: theme.textPrimary}]}>Soluzioni Aka</Text>
-              <Divider color={theme.textSecondary} width={0.5} />
               {isEditing ? (
                 <Controller 
                   control={control}
@@ -205,7 +206,6 @@ const MatchScreen = () => {
 
             <View style={styles.textContainer}>
               <Text style={[styles.fieldLabel, {color: theme.textPrimary}]}>Soluzioni Ao</Text>
-              <Divider color={theme.textSecondary} width={0.5} />
               {isEditing ? (
                 <Controller
                   control={control}
@@ -278,7 +278,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10 
   }, 
   content: {
-    flex: 1 
+    flex: 1,
   },
   contentHeader: {
     display: 'flex', 
@@ -304,7 +304,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   }, 
   fieldLabel: {
-    fontSize: 16, 
+    fontSize: 18, 
     fontWeight: '500', 
     marginRight: 2
   }, 
@@ -327,7 +327,10 @@ const styles = StyleSheet.create({
   textContainer: {
     display: 'flex', 
     flexDirection: 'column', 
-    marginVertical: 20
+    marginVertical: 20,
+    borderRadius: 10, 
+    padding: 5,
+    borderBottomWidth: 0.5
   }, 
   description: {
     fontSize: 14,

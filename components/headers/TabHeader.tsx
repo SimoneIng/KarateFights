@@ -1,8 +1,8 @@
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text ,StyleSheet, TouchableOpacity } from 'react-native'
 import React from 'react'
-import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '@/context/ThemeProvider';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
 
 interface Props {
@@ -16,8 +16,13 @@ const TabHeader = ({title}: Props) => {
     const { top } = useSafeAreaInsets();
 
     return (
-        <View style={[styles.container, {paddingTop: top+20, backgroundColor: theme.background}]}>
-            <Text style={[styles.title, {color: theme.textPrimary}]}>{title}</Text>
+        <View style={[styles.container, {paddingTop: top, backgroundColor: theme.cardBackground}]}>
+            <Text style={[styles.title, {color: '#fff'}]}>{title}</Text>
+            <TouchableOpacity
+                onPress={() => router.push("/modals/settings")}
+            >
+                <Ionicons name='settings-outline' size={24} color="#fff" /> 
+            </TouchableOpacity>
         </View>
     )
 }
@@ -28,7 +33,8 @@ const styles = StyleSheet.create({
         display: 'flex', 
         flexDirection: 'row', 
         alignItems: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        paddingVertical: 20
     },
     title: {
         fontSize: 32, 

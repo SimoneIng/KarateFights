@@ -45,7 +45,7 @@ const TabsLayout = () => {
 
   return (
     <>
-      <StatusBar backgroundColor={theme.background} style={isDark ? 'dark' : 'dark'} />
+      <StatusBar backgroundColor={theme.background} style='light' />
       <TabsLayoutTabs /> 
     </>
   )

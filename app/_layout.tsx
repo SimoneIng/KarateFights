@@ -10,6 +10,7 @@ import AthleteHeader from '@/components/headers/AthleteHeader';
 import FlashMessage from "react-native-flash-message";
 import { Alert } from 'react-native';
 import { useDatabaseStore } from '@/context/DatabaseProvider';
+import SettingsHeader from '@/components/headers/SettingsHeader';
 
 SplashScreen.preventAutoHideAsync(); 
 
@@ -53,6 +54,14 @@ const StackLayout = () => {
       <Stack.Screen name="match/[id]" options={{
         animation: 'slide_from_right'
       }} />
+      <Stack.Screen name='modals/settings' options={{
+        header: () => <SettingsHeader />, 
+        headerShown: true, 
+        animation: 'slide_from_right', 
+        presentation: 'fullScreenModal',
+        headerTitle: 'Impostazioni', 
+        headerTitleAlign: 'center',
+      }} /> 
     </Stack>
   )
 

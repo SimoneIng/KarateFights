@@ -31,7 +31,7 @@
         {
           "image": "./assets/images/splash-icon.png",
           "resizeMode": "contain",
-          "backgroundColor": "#"
+          "backgroundColor": "#ffffff"
         }
       ],
       "expo-font",
@@ -52,7 +52,10 @@
       "policy": "appVersion"
     },
     "updates": {
-      "url": "https://u.expo.dev/070b611c-275e-4edb-b13a-b51c90e7b3ed"
+      "url": "https://u.expo.dev/070b611c-275e-4edb-b13a-b51c90e7b3ed",
+      "enabled": true,
+      "checkAutomatically": "ON_LOAD",
+      "fallbackToCacheTimeout": 0
     }
   }
 }

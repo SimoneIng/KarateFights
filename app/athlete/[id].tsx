@@ -111,7 +111,6 @@ const AthleteDetailPage = () => {
 
       <View style={styles.container}>
         <Text style={[styles.label, {color: theme.textPrimary}]}>Caratteristiche</Text>
-        <Divider color={theme.border} />
         {isEditing ? (
           <Controller
             control={control}
@@ -135,7 +134,6 @@ const AthleteDetailPage = () => {
 
       <View style={styles.container}>
         <Text style={[styles.label, {color: theme.textPrimary}]}>Punti Deboli</Text>
-        <Divider color={theme.border} />
         {isEditing ? (
           <Controller
             control={control}
@@ -218,7 +216,8 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   container: {
-    marginVertical: 10
+    marginVertical: 10,
+    borderBottomWidth: 0.5, 
   },
   text: {
     marginLeft: 5,

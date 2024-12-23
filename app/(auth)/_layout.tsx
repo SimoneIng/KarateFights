@@ -39,7 +39,7 @@ const AuthLayout = () => {
 
   return (
     <>
-      <StatusBar backgroundColor={theme.background} style={isDark ? 'light' : 'dark'} />
+      <StatusBar backgroundColor={theme.background} style='light' />
       <AuthLayoutStack />
     </>
   )

@@ -88,7 +88,6 @@ const Tournaments = () => {
         </BottomSheetView>
       </BottomSheetModal>
 
-      <StatusBar style={isDark ? 'light' : 'dark'} />
     </View>
   )
 }
