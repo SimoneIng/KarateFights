@@ -3,9 +3,7 @@ import { Tabs } from 'expo-router';
 import { useTheme } from '@/context/ThemeProvider';
 import TabHeader from '@/components/headers/TabHeader';
 import { StatusBar } from 'expo-status-bar';
-import * as NavigationBar from 'expo-navigation-bar'
 import CustomTabBar from '@/components/CustomTabBar';
-import { Platform } from 'react-native';
 
 const TabsLayoutTabs = () => {
 
@@ -37,15 +35,9 @@ const TabsLayout = () => {
 
   const { theme, isDark } = useTheme(); 
 
-  useEffect(() => {
-    if(Platform.OS === 'android'){
-      NavigationBar.setBackgroundColorAsync(theme.background)
-    }
-  }, [])
-
   return (
     <>
-      <StatusBar backgroundColor={theme.background} style='light' />
+      <StatusBar style={isDark ? 'light' : 'dark'} />
       <TabsLayoutTabs /> 
     </>
   )

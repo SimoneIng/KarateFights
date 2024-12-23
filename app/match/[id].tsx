@@ -128,10 +128,10 @@ const MatchScreen = () => {
       <View style={[styles.container, {paddingTop: top+10, backgroundColor: theme.background}]}>
         <View style={[styles.header]}>
           <TouchableOpacity onPress={() => router.back()}>
-            <Ionicons name='arrow-back-outline' size={36} color={theme.textPrimary} />
+            <Ionicons name='arrow-back-circle' size={36} color={theme.textPrimary} />
           </TouchableOpacity>
           <TouchableOpacity onPress={handleDeleteMatch}>
-            <Ionicons name='trash-bin-outline' size={24} color={theme.error}  />
+            <Ionicons name='trash-bin' size={24} color={theme.error}  />
           </TouchableOpacity>
         </View>
 
@@ -291,11 +291,11 @@ const styles = StyleSheet.create({
   }, 
   label: {
     fontSize: 16,
-    fontFamily: 'RobotoMono-Regular'
+    fontFamily: 'RobotoRegular'
   },
   mainLabel: {
     fontSize: 24, 
-    fontFamily: 'RobotoMono-Bold'
+    fontFamily: 'RobotoBold'
   }, 
   nameContainer: {
     display: 'flex', 
@@ -306,7 +306,8 @@ const styles = StyleSheet.create({
   fieldLabel: {
     fontSize: 18, 
     fontWeight: '500', 
-    marginRight: 2
+    marginRight: 2,
+    fontFamily: 'RobotoBold'
   }, 
   button: {
     marginVertical: 10,
@@ -320,7 +321,7 @@ const styles = StyleSheet.create({
   buttonLabel: {
     textAlign: 'center',
     fontSize: 18,
-    fontWeight: '600',
+    fontFamily: 'RobotoBold',
     marginRight: 10,
     color: '#FFF'
   }, 
@@ -334,7 +335,7 @@ const styles = StyleSheet.create({
   }, 
   description: {
     fontSize: 14,
-    fontFamily: 'RobotoMono-Light', 
+    fontFamily: 'RobotoLight', 
     marginLeft: 5,
     marginTop: 5 
   }, 

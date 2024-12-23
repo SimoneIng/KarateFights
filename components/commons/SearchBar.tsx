@@ -40,7 +40,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   };
 
   return (
-    <View style={[styles.searchContainer, containerStyle, {backgroundColor: '#ccc'}]}>
+    <View style={[styles.searchContainer, containerStyle, {borderColor: theme.textPrimary, backgroundColor: 'trasparent'}]}>
       <Ionicons name="search" size={20} color={theme.textPrimary} />
       <TextInput
         style={[styles.input, inputStyle, {color: theme.textPrimary}]}
@@ -66,13 +66,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 10,
     paddingHorizontal: 10,
-    paddingVertical: 4,
+    paddingVertical: 5,
+    borderWidth: 0.5
   },
   input: {
     flex: 1,
     marginLeft: 8,
     fontSize: 16,
-    height: 35
   },
 });
 

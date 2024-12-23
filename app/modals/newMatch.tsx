@@ -51,7 +51,7 @@ const NewMatch = () => {
         <View style={[styles.container, {paddingTop: top+10, backgroundColor: theme.background}]}>
             <View style={styles.header}>
                 <TouchableOpacity onPress={() => router.back()}>
-                    <Ionicons name='arrow-back-outline' size={36} color={theme.textPrimary} />
+                    <Ionicons name='arrow-back-circle' size={36} color={theme.textPrimary} />
                 </TouchableOpacity>
                 <Text style={[styles.label, {color: theme.textPrimary}]}>Step. 3/3</Text>
             </View>
@@ -71,7 +71,6 @@ const NewMatch = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1, 
-        paddingBottom: 20
     }, 
     header: {
         display: 'flex', 
@@ -83,7 +82,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 16, 
-        fontFamily: 'RobotoMono-Regular'
+        fontFamily: 'RobotoRegular'
     }, 
     content: {
         flex: 1

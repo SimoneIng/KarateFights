@@ -38,7 +38,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
     if (initialTheme) {
       return initialTheme === 'dark';
     }
-    return systemColorScheme === 'dark';
+    return systemColorScheme === 'light';
   });
 
   useEffect(() => {

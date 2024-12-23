@@ -8,15 +8,14 @@ import { StatusBar } from 'expo-status-bar';
 
 const SettingsHeader = () => {
 
-    const { theme } = useTheme();  
+    const { theme, isDark } = useTheme();  
     const { top } = useSafeAreaInsets();
 
     return (
         <View style={[styles.container, {paddingTop: top+20, backgroundColor: theme.cardBackground}]}>
             <TouchableOpacity onPress={() => router.back()}>
-                <Ionicons name='arrow-back-circle' size={36} color='#fff' />
+                <Ionicons name='arrow-back-circle' size={36} color={theme.accent} />
             </TouchableOpacity>
-            <StatusBar style='dark' />
         </View>
     )
 }

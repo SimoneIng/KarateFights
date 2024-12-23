@@ -31,15 +31,15 @@ const AuthLayout = () => {
 
   const { theme, isDark } = useTheme();
 
-    useEffect(() => {
-      if(Platform.OS === 'android'){
-        NavigationBar.setBackgroundColorAsync(theme.background)
-      }
-    }, [])
+    // useEffect(() => {
+    //   if(Platform.OS === 'android'){
+    //     NavigationBar.setBackgroundColorAsync(theme.background)
+    //   }
+    // }, [])
 
   return (
     <>
-      <StatusBar backgroundColor={theme.background} style='light' />
+      <StatusBar style='dark' />
       <AuthLayoutStack />
     </>
   )

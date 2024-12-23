@@ -66,11 +66,11 @@ const SelectAthletes = () => {
       {/* Header */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()}>
-          <Ionicons name="arrow-back-outline" size={36} color={theme.textPrimary} />
+          <Ionicons name="arrow-back-circle" size={36} color={theme.textPrimary} />
         </TouchableOpacity>
         <Text style={[styles.label, { color: theme.textPrimary }]}>Step. 2/3</Text>
         <TouchableOpacity onPress={handleSelectedAthletes}>
-          <Ionicons name="arrow-forward-outline" size={36} color={theme.textPrimary} />
+          <Ionicons name="arrow-forward-circle" size={36} color={theme.textPrimary} />
         </TouchableOpacity>
       </View>
 
@@ -117,7 +117,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16, 
-    fontFamily: 'RobotoMono-Regular'
+    fontFamily: 'RobotoRegular'
   },
   content: {
     flex: 1,
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   }, 
   title: {
     fontSize: 32, 
-    fontFamily: 'RobotoMono-Bold'
+    fontFamily: 'RobotoBold'
   },
   infosContainer: {
     display: 'flex', 
@@ -135,11 +135,11 @@ const styles = StyleSheet.create({
   }, 
   subtitle: {
     fontSize: 21, 
-    fontFamily: 'RobotoMono-Bold'
+    fontFamily: 'RobotoBold'
   }, 
   sublabel: {
     fontSize: 16, 
-    fontFamily: 'RobotoMono-Regular'
+    fontFamily: 'RobotoRegular'
   }
 });
 

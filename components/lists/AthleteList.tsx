@@ -24,10 +24,10 @@ const AthleteCard = ({ athlete, onPress }:AthleteItemProps) => {
             onPress={() => onPress(athlete.AthleteId)} 
             style={[styles.athleteCard, {backgroundColor: theme.cardBackground}]}
         >
-            <Text style={[styles.athleteName, {color: '#fff'}]}>
+            <Text style={[styles.athleteName, {color: theme.accent}]}>
                 {athlete.firstname + " " + athlete.lastname}
             </Text>
-            <Ionicons name='arrow-forward-circle-outline' size={24} color='#fff' />
+            <Ionicons name='arrow-forward-circle' size={24} color={theme.accent} />
         </TouchableOpacity>
     )
 }
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     athleteName: {
         textAlign: 'center', 
         fontSize: 18, 
-        fontFamily: 'RobotoMono-Bold'
+        fontFamily: 'RobotoBold'
     }, 
     contentContainer: {
         paddingBottom: 60, 
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     }, 
     text: {
         fontSize: 18, 
-        fontFamily: 'RobotoMono-Bold' 
+        fontFamily: 'RobotoBold' 
     }
 });
 

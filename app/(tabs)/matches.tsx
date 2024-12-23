@@ -34,7 +34,6 @@ const Matches = () => {
       match.aoAthlete.firstname.toLowerCase().includes(searchString.toLowerCase()) ||
       match.aoAthlete.lastname.toLowerCase().includes(searchString.toLowerCase())
     )
-    console.log(filter)
     setFilteredMatches(filter)
   }, [filteredMatches]);
 

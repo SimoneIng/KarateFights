@@ -115,7 +115,7 @@ const NewAthleteForm = ({ onClose }: Props) => {
                   style={[
                     styles.input,
                     errors.firstName && styles.errorText,
-                    {color: theme.textPrimary, backgroundColor: theme.border}
+                    {color: theme.textPrimary, fontFamily: 'RobotoRegular'}
                   ]}
                   onBlur={onBlur}
                   onChangeText={onChange}
@@ -150,7 +150,7 @@ const NewAthleteForm = ({ onClose }: Props) => {
                   style={[
                     styles.input,
                     errors.lastName && styles.errorText,
-                    {color: theme.textPrimary, backgroundColor: theme.border}
+                    {color: theme.textPrimary, fontFamily: 'RobotoRegular'}
                   ]}
                   onBlur={onBlur}
                   onChangeText={onChange}
@@ -188,12 +188,12 @@ const styles = StyleSheet.create({
     gap: 20
   }, 
   title: {
-    fontFamily: 'RobotoMono-Bold', 
+    fontFamily: 'RobotoBold', 
     fontSize: 36, 
   },
   textLabel: {
     fontSize: 18, 
-    fontFamily: 'RobotoMono-Bold'
+    fontFamily: 'RobotoBold'
   },
   input: {
     height: 50,
@@ -202,6 +202,7 @@ const styles = StyleSheet.create({
     marginTop: 5, 
     fontSize: 16,
     color: '#000',
+    borderWidth: 0.5
   },
   errorText: {
     color: '#ff4444',

@@ -43,13 +43,13 @@ const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => 
             key={route.key}
             onPress={onPress}
             style={[styles.tabButton, 
-              isFocused && styles.tabButtonFocused
+              isFocused && [styles.tabButtonFocused, {backgroundColor: theme.accent}]
             ]}
           >
             <Ionicons
               name={getIcon(route.name as RouteNames)}
               size={24}
-              color={isFocused ? theme.accent : '#fff'}
+              color={isFocused ? '#fff' : theme.accent}
             />
           </TouchableOpacity>
         );
@@ -78,7 +78,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   tabButtonFocused: {
-    backgroundColor: '#fff',
     borderRadius: 20,
     marginHorizontal: 15
   }

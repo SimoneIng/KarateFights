@@ -77,16 +77,16 @@ const TournamentDetailPage = () => {
     <>
     <View style={[styles.header, {paddingTop: top+10, backgroundColor: theme.background}]}>
       <TouchableOpacity onPress={() => router.back()}>
-        <Ionicons name='arrow-back-outline' size={42} color={theme.textPrimary} />
+        <Ionicons name='arrow-back-circle' size={36} color={theme.textPrimary} />
       </TouchableOpacity>
       <TouchableOpacity style={styles.header} onPress={handleDeleteTournament}>
-        <Ionicons name='trash-bin-outline' size={24} color={theme.error} />
+        <Ionicons name='trash-bin' size={24} color={theme.error} />
       </TouchableOpacity>
     </View>
     <View style={[styles.mainContainer, {backgroundColor: theme.background}]} >  
       <View style={styles.headerContainer} >
-        <Text style={[styles.mainLabel, {color: theme.textPrimary}]} >{tournament?.name}</Text>
-        <Text style={[styles.submainLabel, {color: theme.textSecondary}]} >{tournament?.date}</Text>
+        <Text style={[styles.mainLabel, {color: theme.textPrimary, fontFamily: 'RobotoBold'}]} >{tournament?.name}</Text>
+        <Text style={[styles.submainLabel, {color: theme.textSecondary, fontFamily: 'RobotoRegular'}]} >{tournament?.date}</Text>
       </View>
       {/* Lista incontri con scroll orizzontale */}
       <View style={{gap: 10, flex: 1}}>
@@ -114,13 +114,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10, 
     flexDirection: 'row', 
     justifyContent: 'space-between', 
-    alignItems: 'center'
+    alignItems: 'center',
   }, 
   headerContainer: {
     display: 'flex', 
     alignItems: 'center', 
     marginTop: 10, 
-    marginBottom: 20
+    marginBottom: 20,
+    gap: 5
   }, 
   label: {
     fontSize: 21, 

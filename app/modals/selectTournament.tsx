@@ -36,7 +36,7 @@ const SelectTournamentModalScreen = () => {
     {/* Header */}
     <View style={styles.header}>
       <TouchableOpacity onPress={() => router.back()}>
-        <Ionicons name='arrow-back-outline' size={36} color={theme.textPrimary} />
+        <Ionicons name='arrow-back-circle' size={36} color={theme.textPrimary} />
       </TouchableOpacity>
       <Text style={[styles.label, {color: theme.textPrimary}]}>Step. 1/3</Text>
     </View>
@@ -69,7 +69,7 @@ const styles = StyleSheet.create({
   },
   label: {
     fontSize: 16, 
-    fontFamily: 'RobotoMono-Regular'
+    fontFamily: 'RobotoRegular'
   },
   content: {
     flex: 1,
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   }, 
   title: {
     fontSize: 32, 
-    fontFamily: 'RobotoMono-Bold'
+    fontFamily: 'RobotoBold'
   }
 });
 

@@ -25,10 +25,10 @@ const TorunamentCard = ({ tournament, onPress }:TournamentItemProps) => {
          style={[styles.tournamentCard, {backgroundColor: theme.cardBackground}]}
         >
             <View style={styles.container}>
-                <Text style={[styles.title, {color: '#fff'}]}>{tournament.name}</Text>
-                <Text style={[styles.subTitle, {color: '#ccc'}]}>{tournament.date}</Text>
+                <Text style={[styles.title, {color: theme.accent}]}>{tournament.name}</Text>
+                <Text style={[styles.subTitle, {color: theme.accent}]}>{tournament.date}</Text>
             </View>
-            <Ionicons name='arrow-forward-circle-outline' size={24} color='#fff' />
+            <Ionicons name='arrow-forward-circle' size={24} color={theme.accent} />
         </TouchableOpacity>
     )
 }
@@ -75,13 +75,13 @@ const styles = StyleSheet.create({
     title: {
         textAlign: 'center', 
         fontSize: 18, 
-        fontFamily: 'RobotoMono-Bold'
+        fontFamily: 'RobotoBold'
     }, 
     subTitle: {
         fontSize: 14, 
-        fontFamily: 'RobotoMono-Regular', 
+        fontFamily: 'RobotoRegular', 
         marginTop: 3, 
-        marginLeft: 10
+        marginLeft: 10,
     }, 
     contentContainer: {
         paddingBottom: 60, 
@@ -93,7 +93,7 @@ const styles = StyleSheet.create({
     }, 
     text: {
         fontSize: 18, 
-        fontFamily: 'RobotoMono-Bold' 
+        fontFamily: 'RobotoBold' 
     }
 });
 

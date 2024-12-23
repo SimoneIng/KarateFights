@@ -13,7 +13,7 @@ import { useDatabaseStore } from '@/context/DatabaseProvider';
 
 const Athletes = () => {
   // 1. Hooks al livello più alto
-  const { theme, isDark } = useTheme(); 
+  const { theme } = useTheme(); 
   const { athletes, isLoadingAthletes } = useDatabaseStore()
 
   const [filteredAthletes, setFilteredAthletes] = useState<Athlete[]>([]);  

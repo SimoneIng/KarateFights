@@ -18,7 +18,6 @@ export function useAthletes() {
         'SELECT * FROM Athlete ORDER BY lastname, firstname'
       );
     } catch (error) {
-      console.error('Error fetching athletes:', error);
       throw error;
     }
   };
@@ -31,7 +30,6 @@ export function useAthletes() {
         [athleteId]
       );
     } catch (error) {
-      console.error('Error fetching athlete:', error);
       throw error;
     }
   };
@@ -45,7 +43,6 @@ export function useAthletes() {
       );
       return result.lastInsertRowId;
     } catch (error) {
-      console.error('Error adding athlete:', error);
       throw error;
     }
   };
@@ -62,7 +59,6 @@ export function useAthletes() {
         [features, tactics, athleteId]
       );
     } catch (error) {
-      console.error('Error updating athlete:', error);
       throw error;
     }
   };
@@ -87,7 +83,6 @@ export function useAthletes() {
     } catch (error) {
       const db = await openDatabase();
       await db.runAsync('ROLLBACK');
-      console.error('Error deleting athlete:', error);
       throw error;
     }
   };
@@ -126,7 +121,6 @@ export function useAthletes() {
         totalPoints: stats?.totalPoints || 0
       };
     } catch (error) {
-      console.error('Error fetching athlete stats:', error);
       throw error;
     }
   };
@@ -139,7 +133,6 @@ export function useAthletes() {
         [athleteFirstname, athleteLastname]
       ); 
     } catch(error){
-      console.error('Error fetching athlete', error);
       throw error; 
     }
   }
@@ -211,7 +204,6 @@ export function useMatches() {
         },
       };
     } catch (error) {
-      console.error("Error fetching match:", error);
       throw error;
     }
   };
@@ -358,7 +350,6 @@ export function useMatches() {
         }
       }));
     } catch (error) {
-      console.error('Error fetching matches:', error);
       throw error;
     }
   };
@@ -409,7 +400,6 @@ export function useMatches() {
         },
       }));
     } catch (error) {
-      console.error("Error fetching tournament matches:", error);
       throw error;
     }
   };
@@ -438,7 +428,6 @@ export function useMatches() {
       ]);
       return result.lastInsertRowId;
     } catch (error) {
-      console.error('Error adding match:', error);
       throw error;
     }
   };
@@ -460,7 +449,6 @@ export function useMatches() {
         [...values, matchId]
       );
     } catch (error) {
-      console.error('Error updating match:', error);
       throw error;
     }
   };
@@ -470,7 +458,6 @@ export function useMatches() {
       const db = await openDatabase();
       await db.runAsync('DELETE FROM Match WHERE id = ?', [matchId]);
     } catch (error) {
-      console.error('Error deleting match:', error);
       throw error;
     }
   };
@@ -521,7 +508,6 @@ export function useMatches() {
         },
       }));
     } catch (error) {
-      console.error("Error fetching athletes matches:", error);
       throw error;
     }
   }
@@ -547,7 +533,6 @@ export function useTournaments() {
         'SELECT * FROM Tournament ORDER BY date DESC'
       );
     } catch (error) {
-      console.error('Error fetching tournaments:', error);
       throw error;
     }
   };
@@ -560,7 +545,6 @@ export function useTournaments() {
         [id]
       );
     } catch (error) {
-      console.error('Error fetching tournament:', error);
       throw error;
     }
   };
@@ -574,7 +558,6 @@ export function useTournaments() {
       );
       return result.lastInsertRowId;
     } catch (error) {
-      console.error('Error adding tournament:', error);
       throw error;
     }
   };
@@ -591,7 +574,6 @@ export function useTournaments() {
         [name, date, id]
       );
     } catch (error) {
-      console.error('Error updating tournament:', error);
       throw error;
     }
   };
@@ -611,7 +593,6 @@ export function useTournaments() {
     } catch (error) {
       const db = await openDatabase();
       await db.runAsync('ROLLBACK');
-      console.error('Error deleting tournament:', error);
       throw error;
     }
   };
@@ -629,7 +610,7 @@ export function useTournaments() {
 //         WHERE tournamentId = ?
 //       `, [id]);
 //     } catch (error) {
-//       console.error('Error fetching tournament stats:', error);
+//       .error('Error fetching tournament stats:', error);
 //       throw error;
 //     }
 //   };

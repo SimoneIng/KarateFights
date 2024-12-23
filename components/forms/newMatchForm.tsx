@@ -224,9 +224,19 @@ const NewMatchForm = ({ tournament, akaAthlete, aoAthlete, onSubmit }: Props) =>
         name='akaSummary'
         />
 
+        <View style={{
+          flex: 1,  
+          flexDirection: 'row',
+          alignItems: 'center',
+          justifyContent: 'flex-start',
+        }}>
+          <Ionicons name='information-circle' size={18} color={theme.textPrimary} />
+          <Text style={{fontSize: 12, fontFamily: 'RobotoLight', color: theme.textPrimary}}>Le descrizioni possono essere modificate successivamente.</Text>
+        </View>
+
         {/* Salva Incontro Button */}
         <TouchableOpacity style={[styles.addMatchBanner, {backgroundColor: theme.cardBackground}]} onPress={handleSubmit(onSubmit)}>
-          <Text style={[styles.addMatchLabel, {color: '#fff'}]}>Salva Incontro</Text>
+          <Text style={[styles.addMatchLabel, {color: theme.accent}]}>Salva Incontro</Text>
           <Ionicons name="bookmark" size={24} color={theme.accent} />
         </TouchableOpacity>
       </ScrollView>
@@ -253,16 +263,16 @@ const styles = StyleSheet.create({
   },
   scoreLabel: {
     fontSize: 16,
-    fontWeight: '600',
+    fontFamily: 'RobotoMedium'
   },
   scoreValue: {
     fontSize: 24,
-    fontWeight: '700',
+    fontFamily: 'RobotoBold',
     marginTop: 5,
   },
   vsText: {
     fontSize: 18,
-    fontWeight: '600',
+    fontFamily: 'RobotoBold', 
     textAlign: 'center',
   },
   valueBox: {
@@ -274,7 +284,7 @@ const styles = StyleSheet.create({
   },
   fieldLabel: {
     fontSize: 18,
-    fontWeight: '500',
+    fontFamily: 'RobotoBold',
     marginBottom: 5,
   },
   input: {
@@ -295,7 +305,7 @@ const styles = StyleSheet.create({
   },
   addMatchLabel: {
     fontSize: 18,
-    fontWeight: '600',
+    fontFamily: 'RobotoBold'
   },
 });
 

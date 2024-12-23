@@ -4,6 +4,7 @@ import { useTheme } from '@/context/ThemeProvider';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { router } from 'expo-router';
+import { Platform } from 'react-native';
 
 interface Props {
     title: string
@@ -16,12 +17,17 @@ const TabHeader = ({title}: Props) => {
     const { top } = useSafeAreaInsets();
 
     return (
-        <View style={[styles.container, {paddingTop: top, backgroundColor: theme.cardBackground}]}>
-            <Text style={[styles.title, {color: '#fff'}]}>{title}</Text>
+        <View style={[styles.container, {backgroundColor: theme.cardBackground,
+            paddingTop: Platform.select({
+                android: top+20, 
+                ios: top
+            })
+        }]}>
+            <Text style={[styles.title, {color: theme.accent}]}>{title}</Text>
             <TouchableOpacity
                 onPress={() => router.push("/modals/settings")}
             >
-                <Ionicons name='settings-outline' size={24} color="#fff" /> 
+                <Ionicons name='settings' size={24} color={theme.accent} /> 
             </TouchableOpacity>
         </View>
     )
@@ -38,7 +44,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 32, 
-        fontFamily: 'RobotoMono-Bold'
+        fontFamily: 'RobotoBold'
     }
 });
 

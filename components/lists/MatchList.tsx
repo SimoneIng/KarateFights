@@ -29,7 +29,7 @@ const MatchCard = ({match, onPress}: MatchItemProps) => {
               <View style={{
                 flexDirection: 'row', gap: 2, alignItems: 'center'
               }}>
-                <Text style={[{color: '#ccc'}]}>Aka</Text>
+                <Text style={[{color: theme.accent, fontFamily: 'RobotoMedium'}]}>Aka</Text>
                 <Ionicons name='ellipse' color='red' size={14} />
               </View>
               <Text style={styles.matchLabel}>{match.aoAthlete.firstname + " " + match.aoAthlete.lastname}</Text>
@@ -39,7 +39,7 @@ const MatchCard = ({match, onPress}: MatchItemProps) => {
           <View style={{
                 flexDirection: 'row', gap: 2, alignItems: 'center'
               }}>
-                <Text style={[{color: '#ccc'}]}>Ao</Text>
+                <Text style={[{color: theme.accent, fontFamily: 'RobotoMedium'}]}>Ao</Text>
                 <Ionicons name='ellipse' color='blue' size={14} />
               </View>
               <Text style={styles.matchLabel}>{match.akaAthlete.firstname + " " + match.akaAthlete.lastname}</Text>
@@ -65,7 +65,7 @@ const MatchList = ({ matches, onSelectedMatch }: MatchesListProps) => {
       
       ListEmptyComponent={() => (
           <View style={styles.emptyContainer}>
-              <Text style={[styles.text, {color: theme.textPrimary}]}>Nessun Incontro</Text>
+              <Text style={[styles.text, {color: theme.accent}]}>Nessun Incontro</Text>
           </View>
       )}
     />
@@ -86,13 +86,11 @@ const styles = StyleSheet.create({
   }, 
   matchLabel: {
     fontSize: 16, 
-    fontWeight: '600', 
-    color: "#fff"
+    fontFamily: 'RobotoMedium'
   }, 
   matchSubLabel: {
     fontSize: 14, 
-    fontWeight: '500', 
-    color: "#fff", 
+    fontFamily: 'RobotoLight',
     marginTop: 5
   }, 
   gradientBackground: {
@@ -116,7 +114,7 @@ const styles = StyleSheet.create({
   }, 
   text: {
       fontSize: 18, 
-      fontFamily: 'RobotoMono-Bold' 
+      fontFamily: 'RobotoBold' 
   }
 });
 

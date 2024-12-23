@@ -225,11 +225,11 @@ const styles = StyleSheet.create({
   }, 
   athleteName: {
     fontSize: 32,
-    fontWeight: '500'
+    fontFamily: 'RobotoBold'
   },
   label: {
     fontSize: 18,
-    fontWeight: '500',
+    fontFamily: 'RobotoBold'
   },
   input: {
     borderWidth: 1,
@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
     color: '#fff',
     textAlign: 'center',
     fontSize: 18,
-    fontWeight: '600',
+    fontFamily: 'RobotoBold',
     marginRight: 10
   }
 });

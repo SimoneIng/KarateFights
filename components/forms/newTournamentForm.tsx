@@ -99,7 +99,7 @@ const NewTournamentForm: React.FC<Props> = ({ onClose }) => {
           
           <View>
             <Text style={[styles.textLabel, {color: theme.textPrimary}]}>Titolo</Text>
-            <TextInput style={[styles.input, {color: theme.textPrimary, backgroundColor: theme.border}]}
+            <TextInput style={[styles.input, {color: theme.textPrimary}]}
               placeholder='Inserisci Titolo'
               placeholderTextColor={theme.textPrimary}
               onChangeText={(title) => setTitle(title)}
@@ -108,9 +108,9 @@ const NewTournamentForm: React.FC<Props> = ({ onClose }) => {
           </View>
 
           <Text style={[styles.textLabel, {color: theme.textPrimary}]}>Data</Text>
-          <Pressable style={[styles.button, styles.pickerButton, {backgroundColor: theme.border}]} onPress={showDatePicker} >
-            <Ionicons name='calendar-clear-outline' size={24} color={theme.accent} />
-            <Text style={[styles.buttonText, {color: theme.textPrimary}]} >{date.toLocaleDateString()}</Text>
+          <Pressable style={[styles.button, styles.pickerButton, {backgroundColor: theme.cardBackground}]} onPress={showDatePicker} >
+            <Ionicons name='calendar-clear' size={24} color={theme.accent} />
+            <Text style={[styles.buttonText, {color: theme.accent}]} >{date.toLocaleDateString()}</Text>
           </Pressable>
 
           <DateTimePickerModal
@@ -136,12 +136,12 @@ const styles = StyleSheet.create({
     gap: 20
   }, 
   title: {
-    fontFamily: 'RobotoMono-Bold', 
+    fontFamily: 'RobotoBold', 
     fontSize: 36
   },
   textLabel: {
     fontSize: 21,
-    fontFamily: 'RobotoMono-Bold'
+    fontFamily: 'RobotoBold'
   },
   input: {
     height: 50,
@@ -150,6 +150,7 @@ const styles = StyleSheet.create({
     marginTop: 5, 
     fontSize: 16,
     color: '#000',
+    borderWidth: 0.5 
   },
   button: {
     padding: 15,

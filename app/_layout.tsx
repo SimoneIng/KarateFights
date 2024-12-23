@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { SplashScreen, Stack } from 'expo-router';
-import { ThemeProvider, useTheme } from '@/context/ThemeProvider';
+import { ThemeProvider } from '@/context/ThemeProvider';
 import { useFonts } from 'expo-font'; 
 import { SessionProvider } from '@/context/SessionProvider';
 import { initializeDatabase } from '@/database/Database';
@@ -87,7 +87,6 @@ const RootLayout = () => {
         await fetchTournaments()
         await fetchMatches() 
       } catch(error) { 
-        console.log(error)
         Alert.alert("Errore", error as string)
       }
     }
