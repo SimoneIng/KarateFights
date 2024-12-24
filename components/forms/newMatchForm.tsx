@@ -20,8 +20,8 @@ const calculateScore = (values: Partial<MatchFormData>, prefix: 'ao' | 'aka') =>
   // Tecniche da 1 punto
   const onePointTechniques = [
     `${prefix}Kizami`,
-    `${prefix}JyakuJodan`,
-    `${prefix}JyakuChudan`,
+    `${prefix}GyakuJodan`,
+    `${prefix}GyakuChudan`,
   ].reduce((sum, key) => {
     const value = Number(values[key as keyof MatchFormData]) || 0;
     return sum + value * 1;
@@ -59,8 +59,8 @@ const NewMatchForm = ({ tournament, akaAthlete, aoAthlete, onSubmit }: Props) =>
       akaScore: 0,
 
       aoKizami: 0,
-      aoJyakuJodan: 0,
-      aoJyakuChudan: 0,
+      aoGyakuJodan: 0,
+      aoGyakuChudan: 0,
 
       aoJodanMawashi: 0,
       aoChudanMawashi: 0,
@@ -68,8 +68,8 @@ const NewMatchForm = ({ tournament, akaAthlete, aoAthlete, onSubmit }: Props) =>
       aoSweep: 0, 
 
       akaKizami: 0,
-      akaJyakuJodan: 0, 
-      akaJyakuChudan: 0, 
+      akaGyakuJodan: 0, 
+      akaGyakuChudan: 0, 
 
       akaJodanMawashi: 0,
       akaChudanMawashi: 0,
@@ -96,15 +96,15 @@ const NewMatchForm = ({ tournament, akaAthlete, aoAthlete, onSubmit }: Props) =>
     setValue('akaScore', newAkaScore);
   }, [
     values.aoKizami,
-    values.aoJyakuJodan,
-    values.aoJyakuChudan,
+    values.aoGyakuJodan,
+    values.aoGyakuChudan,
     values.aoJodanMawashi,
     values.aoChudanMawashi,
     values.aoUramawashi,
     values.aoSweep, 
     values.akaKizami,
-    values.akaJyakuJodan,
-    values.akaJyakuChudan, 
+    values.akaGyakuJodan,
+    values.akaGyakuChudan, 
     values.akaJodanMawashi,
     values.akaChudanMawashi,
     values.akaUramawashi,
@@ -142,13 +142,13 @@ const NewMatchForm = ({ tournament, akaAthlete, aoAthlete, onSubmit }: Props) =>
         </View>
 
         <View style={styles.valueBox}>
-          <CustomInput name="Jyaku Jodan" color="blue" control={control} fieldName="aoJyakuJodan" />
-          <CustomInput name="Jyaku Jodan" color="red" control={control} fieldName="akaJyakuJodan" />
+          <CustomInput name="Gyaku Jodan" color="blue" control={control} fieldName="aoGyakuJodan" />
+          <CustomInput name="Gyaku Jodan" color="red" control={control} fieldName="akaGyakuJodan" />
         </View>
 
         <View style={styles.valueBox}>
-          <CustomInput name="Jyaku Chudan" color="blue" control={control} fieldName="aoJyakuChudan" />
-          <CustomInput name='Jyaku Chudan' color='red' control={control} fieldName='akaJyakuChudan' /> 
+          <CustomInput name="Gyaku Chudan" color="blue" control={control} fieldName="aoGyakuChudan" />
+          <CustomInput name='Gyaku Chudan' color='red' control={control} fieldName='akaGyakuChudan' /> 
         </View>
 
         <View style={styles.valueBox}>

@@ -12,13 +12,7 @@ const AuthLayoutStack = () => {
 
   return (
     <Stack screenOptions={{
-      headerShadowVisible: false, 
-      headerStyle: {
-        backgroundColor: theme.background, 
-      }, 
-      contentStyle: {
-        backgroundColor: theme.background,
-      }
+      headerShown: false, 
     }}>
         <Stack.Screen name='sign-in' options={{
           header: () => <SignInHeader />, 
@@ -28,14 +22,6 @@ const AuthLayoutStack = () => {
 }
 
 const AuthLayout = () => {
-
-  const { theme, isDark } = useTheme();
-
-    // useEffect(() => {
-    //   if(Platform.OS === 'android'){
-    //     NavigationBar.setBackgroundColorAsync(theme.background)
-    //   }
-    // }, [])
 
   return (
     <>

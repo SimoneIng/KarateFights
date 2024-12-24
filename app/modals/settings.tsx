@@ -40,10 +40,10 @@ const Profile = () => {
         <Text style={{color: theme.textPrimary ,fontSize: 14, alignSelf: 'center', fontFamily: 'RobotoRegular'}}>Questa sezione è ancora da completare.</Text>
       </View>
 
-      <View style={styles.buttons}>
+      {/* <View style={styles.buttons}>
         <CustomButton title='Cambia Tema' iconName='color-palette' handlePress={toggleTheme} />
         <CustomButton title='Salva Dati' iconName='document' handlePress={handleSaveData} />
-      </View>
+      </View> */}
 
       <StatusBar style={isDark ? 'light' : 'dark'} />
     </View>

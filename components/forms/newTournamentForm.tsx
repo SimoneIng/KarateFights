@@ -104,7 +104,7 @@ const NewTournamentForm: React.FC<Props> = ({ onClose }) => {
               placeholderTextColor={theme.textPrimary}
               onChangeText={(title) => setTitle(title)}
               />
-            {error && <Text style={{color: 'red'}}>Titolo troppo corto</Text>}  
+            {error && <Text style={{color: 'red', fontFamily: 'RobotoMedium'}}>Titolo troppo corto</Text>}  
           </View>
 
           <Text style={[styles.textLabel, {color: theme.textPrimary}]}>Data</Text>
@@ -149,8 +149,8 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     marginTop: 5, 
     fontSize: 16,
-    color: '#000',
-    borderWidth: 0.5 
+    borderWidth: 0.5, 
+    fontFamily: 'RobotoMedium'
   },
   button: {
     padding: 15,
@@ -159,7 +159,7 @@ const styles = StyleSheet.create({
   buttonText: {
     textAlign: 'center',
     fontSize: 16,
-    fontWeight: '600',
+    fontFamily: 'RobotoMedium'
   },
   pickerButton: {
     display: 'flex', 

@@ -73,6 +73,10 @@ const TournamentDetailPage = () => {
     })
   }
 
+  const matchSelection = (id: number) => {
+    router.push(`/match/${id.toString()}`)
+  }
+
   return (
     <>
     <View style={[styles.header, {paddingTop: top+10, backgroundColor: theme.background}]}>
@@ -91,7 +95,7 @@ const TournamentDetailPage = () => {
       {/* Lista incontri con scroll orizzontale */}
       <View style={{gap: 10, flex: 1}}>
         <CustomButton title='Aggiungi Incontro' handlePress={handleNewMatch} iconName='add-circle-outline' />
-        <MatchList matches={tournamentMatches} onSelectedMatch={handleNewMatch} />
+        <MatchList matches={tournamentMatches} onSelectedMatch={matchSelection} />
       </View>
     </View>
     </>

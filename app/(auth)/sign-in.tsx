@@ -1,11 +1,10 @@
-import { View, Text, Pressable, StyleSheet, Alert, TextInput } from 'react-native'
+import { View, Text, StyleSheet, Alert, TextInput, TouchableOpacity } from 'react-native'
 import React from 'react'
 import { useTheme } from '@/context/ThemeProvider';
 import { useSession } from '@/context/SessionProvider';
 import { useForm, Controller } from 'react-hook-form'; 
 import { router } from 'expo-router';
-import { useAthletes } from '@/database/hooks';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDatabaseStore } from '@/context/DatabaseProvider';
 
 interface FormData {
   firstname: string, 
@@ -14,9 +13,9 @@ interface FormData {
 
 const SignIn = () => {
 
-  const { theme, isDark } = useTheme(); 
+  const { theme } = useTheme(); 
   const { login } = useSession(); 
-  const { addAthlete } = useAthletes(); 
+  const { addAthlete } = useDatabaseStore(); 
 
   const {
     control, 
@@ -33,12 +32,9 @@ const SignIn = () => {
     try {
       await login(data.firstname, data.lastname); 
 
-      // Salva nuovo utente come primo atleta e salva id in asyncstorage
-      addAthlete(data.firstname, data.lastname).then(id => {
-        AsyncStorage.setItem("userAthleteId", id.toString()); 
-      }).catch(error => {
-        Alert.alert("Errore Login", error)
-      })
+      addAthlete(data.firstname, data.lastname).then(() => {
+
+      }).catch(err => Alert.alert("Errore nella Registrazione", err)); 
 
       router.replace('/'); 
     } catch (error) {
@@ -47,11 +43,10 @@ const SignIn = () => {
   }
 
   return (
-    <View style={[styles.container, { }]}>
+    <View style={[styles.container, { backgroundColor: theme.background }]}>
   
       <View style={styles.titleContainer}>
         <Text style={[styles.titleText, { color: theme.accent }]}>Accedi</Text>
-        {/* <Text style={[styles.text, {color: theme.textSecondary}]}>Una volta effettuato l'accesso le tue credenziali rimangono salvate all'interno del tuo dispositivo, insieme a tutti i dati dell'applicazione. Fai attenzione a non cancellare nulla.</Text> */}
       </View>
 
       <View style={styles.form}>
@@ -123,18 +118,18 @@ const SignIn = () => {
           )}
         </View>
 
-        <Pressable
+        <TouchableOpacity
           onPress={handleSubmit(onSubmit)}
           style={[
             styles.button,
-            { backgroundColor: theme.accent },
+            { backgroundColor: theme.cardBackground },
           ]}
           disabled={isSubmitting}
         >
-          <Text style={[styles.buttonText, { color: '#fff' }]}>
+          <Text style={[styles.buttonText, { color: theme.accent }]}>
             {isSubmitting ? 'Accesso in corso...' : 'Accedi'}
           </Text>
-        </Pressable>
+        </TouchableOpacity>
       </View>
       
     </View>
@@ -144,7 +139,7 @@ const SignIn = () => {
 const styles = StyleSheet.create({
   container: { 
     flex: 1, 
-    marginHorizontal: 20, 
+    paddingHorizontal: 20, 
     flexDirection: 'column', 
     justifyContent: 'center', 
   }, 
@@ -156,7 +151,8 @@ const styles = StyleSheet.create({
   }, 
   text: {
     fontSize: 14, 
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: 'RobotoLight'
   }, 
   form: {
     display: 'flex',  
@@ -164,15 +160,18 @@ const styles = StyleSheet.create({
   }, 
   titleText: {
     fontSize: 42,  
+    fontFamily: 'RobotoBold'
   }, 
   textLabel: {
     fontSize: 16, 
+    fontFamily: 'RobotoMedium'
   },
   input: {
     borderWidth: 1,
     padding: 10,
     marginVertical: 10,
     borderRadius: 5,
+    fontFamily: 'RobotoRegular'
   },
   inputError: {
       borderColor: '#ff4444',
@@ -181,6 +180,7 @@ const styles = StyleSheet.create({
       color: '#ff4444',
       fontSize: 12,
       marginBottom: 10,
+      fontFamily: 'RobotoMedium'
   },
   button: {
       borderRadius: 5,
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
       alignItems: 'center'
   },
   buttonText: {
-      fontWeight: '600'
+      fontFamily: 'RobotoBold'
   },
 });
 

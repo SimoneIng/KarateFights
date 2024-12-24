@@ -17,8 +17,8 @@ export interface Athlete {
     
     // AO techniques
     aoKizami: number;
-    aoJyakuJodan: number;
-    aoJyakuChudan: number;
+    aoGyakuJodan: number;
+    aoGyakuChudan: number;
 
     aoJodanMawashi: number;
     aoChudanMawashi: number;
@@ -28,8 +28,8 @@ export interface Athlete {
     
     // AKA techniques
     akaKizami: number;
-    akaJyakuJodan: number;
-    akaJyakuChudan: number; 
+    akaGyakuJodan: number;
+    akaGyakuChudan: number; 
 
     akaJodanMawashi: number;
     akaChudanMawashi: number;

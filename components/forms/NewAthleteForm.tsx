@@ -201,13 +201,14 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     marginTop: 5, 
     fontSize: 16,
-    color: '#000',
+    fontFamily: 'RobotoRegular', 
     borderWidth: 0.5
   },
   errorText: {
     color: '#ff4444',
     fontSize: 12,
     marginBottom: 10,
+    fontFamily: 'RobotoMedium'
   }
 });
 

@@ -25,8 +25,8 @@ const setupQueries = [
       akaScore INTEGER,
 
       aoKizami INTEGER,
-      aoJyakuJodan INTEGER,
-      aoJyakuChudan INTEGER,
+      aoGyakuJodan INTEGER,
+      aoGyakuChudan INTEGER,
 
       aoJodanMawashi INTEGER,
       aoChudanMawashi INTEGER,
@@ -35,8 +35,8 @@ const setupQueries = [
       aoSweep INTEGER, 
 
       akaKizami INTEGER,
-      akaJyakuJodan INTEGER,
-      akaJyakuChudan INTEGER,
+      akaGyakuJodan INTEGER,
+      akaGyakuChudan INTEGER,
 
       akaJodanMawashi INTEGER,
       akaChudanMawashi INTEGER,

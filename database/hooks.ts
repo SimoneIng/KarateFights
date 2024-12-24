@@ -220,15 +220,15 @@ export function useMatches() {
         aoScore: number;
         akaScore: number;
         aoKizami: number;
-        aoJyakuJodan: number;
-        aoJyakuChudan: number;
+        aoGyakuJodan: number;
+        aoGyakuChudan: number;
         aoJodanMawashi: number;
         aoChudanMawashi: number;
         aoUramawashi: number;
         aoSweep: number;
         akaKizami: number;
-        akaJyakuJodan: number;
-        akaJyakuChudan: number;
+        akaGyakuJodan: number;
+        akaGyakuChudan: number;
         akaJodanMawashi: number;
         akaChudanMawashi: number;
         akaUramawashi: number;
@@ -259,15 +259,15 @@ export function useMatches() {
           m.aoScore,
           m.akaScore,
           m.aoKizami,
-          m.aoJyakuJodan,
-          m.aoJyakuChudan,
+          m.aoGyakuJodan,
+          m.aoGyakuChudan,
           m.aoJodanMawashi,
           m.aoChudanMawashi,
           m.aoUramawashi,
           m.aoSweep, 
           m.akaKizami,
-          m.akaJyakuJodan,
-          m.akaJyakuChudan,
+          m.akaGyakuJodan,
+          m.akaGyakuChudan,
           m.akaJodanMawashi,
           m.akaChudanMawashi,
           m.akaUramawashi,
@@ -310,14 +310,14 @@ export function useMatches() {
         aoScore: row.aoScore,
         akaScore: row.akaScore,
         aoKizami: row.aoKizami,
-        aoJyakuJodan: row.aoJyakuJodan,
-        aoJyakuChudan: row.aoJyakuChudan,
+        aoGyakuJodan: row.aoGyakuJodan,
+        aoGyakuChudan: row.aoGyakuChudan,
         aoJodanMawashi: row.aoJodanMawashi,
         aoChudanMawashi: row.aoChudanMawashi,
         aoUramawashi: row.aoUramawashi,
         akaKizami: row.akaKizami,
-        akaJyakuJodan: row.akaJyakuJodan,
-        akaJyakuChudan: row.akaJyakuChudan,
+        akaGyakuJodan: row.akaGyakuJodan,
+        akaGyakuChudan: row.akaGyakuChudan,
         akaJodanMawashi: row.akaJodanMawashi,
         akaChudanMawashi: row.akaChudanMawashi,
         akaUramawashi: row.akaUramawashi,
@@ -411,18 +411,18 @@ export function useMatches() {
         INSERT INTO Match (
           tournamentId, aoAthleteId, akaAthleteId,
           aoScore, akaScore,
-          aoKizami, aoJyakuJodan, aoJyakuChudan, 
+          aoKizami, aoGyakuJodan, aoGyakuChudan, 
           aoJodanMawashi, aoChudanMawashi, aoUramawashi,
-          akaKizami, akaJyakuJodan, akaJyakuChudan, 
+          akaKizami, akaGyakuJodan, akaGyakuChudan, 
           akaJodanMawashi, akaChudanMawashi, akaUramawashi,
           matchDescription, aoSummary, akaSummary
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `, [
         match.tournamentId, match.aoAthleteId, match.akaAthleteId,
         match.aoScore, match.akaScore,
-        match.aoKizami, match.aoJyakuJodan, match.aoJyakuChudan, 
+        match.aoKizami, match.aoGyakuJodan, match.aoGyakuChudan, 
         match.aoJodanMawashi, match.aoChudanMawashi, match.aoUramawashi,
-        match.akaKizami, match.akaJyakuJodan, match.akaJyakuChudan,  
+        match.akaKizami, match.akaGyakuJodan, match.akaGyakuChudan,  
         match.akaJodanMawashi, match.akaChudanMawashi, match.akaUramawashi,
         match.matchDescription, match.aoSummary, match.akaSummary
       ]);
