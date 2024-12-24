@@ -66,7 +66,7 @@ const destroyQueries = "DROP TABLE IF EXISTS Match; DROP TABLE IF EXISTS Tournam
 
 const initializeDatabase = async () => {
   try {
-    const db = await SQLite.openDatabaseAsync('KarateFightsDB'); 
+    const db = await SQLite.openDatabaseAsync('KarateFightingsDB'); 
 
     setupQueries.forEach(async query => {
       await db.execAsync(query)

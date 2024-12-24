@@ -1,7 +1,7 @@
 import * as SQLite from 'expo-sqlite';
 import { Athlete, Match, Tournament, MatchWithAthletes } from './types';
 
-const DB_NAME = "KarateFightsDB";
+const DB_NAME = "KarateFightingsDB";
 
 const openDatabase = async () => {
   const db = await SQLite.openDatabaseAsync(DB_NAME)
