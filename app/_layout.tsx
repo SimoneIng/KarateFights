@@ -11,6 +11,7 @@ import FlashMessage from "react-native-flash-message";
 import { Alert } from 'react-native';
 import { useDatabaseStore } from '@/context/DatabaseProvider';
 import SettingsHeader from '@/components/headers/SettingsHeader';
+import * as Updates from 'expo-updates'; 
 
 SplashScreen.preventAutoHideAsync(); 
 
@@ -78,6 +79,27 @@ const RootLayout = () => {
     'RobotoMedium': require('../assets/fonts/RobotoMono-Medium.ttf'), 
     'RobotoBold': require('../assets/fonts/RobotoMono-Bold.ttf'), 
   }); 
+
+  useEffect(() => {
+    async function checkForUpdates() {
+      try {
+        // Controlla se è disponibile un aggiornamento
+        const update = await Updates.checkForUpdateAsync();
+        if (update.isAvailable) {
+          // Scarica l'aggiornamento
+          await Updates.fetchUpdateAsync();
+          // Applica l'aggiornamento e riavvia l'app
+          await Updates.reloadAsync();
+        }
+      } catch (error) {
+        // Gestisci eventuali errori
+        console.log(error)
+        Alert.alert("Errore durante l'aggiornamento", error as string);
+      }
+    }
+
+    checkForUpdates();
+  }, []);
 
   useEffect(() => {
     const setupDatabase = async () => {
