@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { } from 'react'
 import { Tabs } from 'expo-router';
 import { useTheme } from '@/context/ThemeProvider';
 import TabHeader from '@/components/headers/TabHeader';
@@ -12,7 +12,7 @@ const TabsLayoutTabs = () => {
       tabBar={(props) => <CustomTabBar {...props} />}
       screenOptions={{
         headerShown: true, 
-        animation: 'shift'
+        animation: 'shift',
       }}
     >
         <Tabs.Screen name='tournaments' options={{
@@ -33,7 +33,7 @@ const TabsLayoutTabs = () => {
 
 const TabsLayout = () => {
 
-  const { theme, isDark } = useTheme(); 
+  const { isDark } = useTheme(); 
 
   return (
     <>

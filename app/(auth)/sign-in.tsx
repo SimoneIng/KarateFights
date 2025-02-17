@@ -46,8 +46,9 @@ const SignIn = () => {
     <View style={[styles.container, { backgroundColor: theme.background }]}>
   
       <View style={styles.titleContainer}>
-        <Text style={[styles.titleText, { color: theme.accent }]}>Accedi</Text>
+        <Text style={[styles.titleText, { color: theme.accent }]}>KarateLogs</Text>
       </View>
+
 
       <View style={styles.form}>
         <View>
@@ -184,7 +185,7 @@ const styles = StyleSheet.create({
   },
   button: {
       borderRadius: 5,
-      padding: 10,
+      padding: 12,
       display: 'flex',
       justifyContent: 'center',
       alignItems: 'center'

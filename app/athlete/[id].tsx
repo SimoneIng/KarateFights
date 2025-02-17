@@ -1,10 +1,7 @@
-import { View, Text, StyleSheet, Pressable, TextInput } from 'react-native';
-import React, { useEffect, useState } from 'react';
-import { useAthletes } from '@/database/hooks';
-import { Athlete } from '@/database/types';
+import { View, Text, StyleSheet, Pressable, TextInput, ScrollView, Alert } from 'react-native';
+import React, { useState } from 'react';
 import { router, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import Divider from '@/components/commons/Divider';
 import { useForm, Controller } from 'react-hook-form';
 import { useTheme } from '@/context/ThemeProvider';
 import { showMessage } from "react-native-flash-message";
@@ -16,189 +13,187 @@ type FormData = {
 };
 
 const AthleteDetailPage = () => {
+  const { theme } = useTheme();
   const { athletes, updateAthlete, deleteAthlete } = useDatabaseStore();
-  const [athlete, setAthlete] = useState<Athlete | null>(null);
-  const [isEditing, setIsEditing] = useState(false);
   const { id } = useLocalSearchParams();
   const athleteId = id as string;
+  const athlete = athletes.find(athlete => athlete.AthleteId === parseInt(athleteId));
+  const [isEditing, setIsEditing] = useState(false);
 
-  const { control, handleSubmit, reset } = useForm<FormData>({
+  if (!athlete) {
+    router.back();
+    return null;
+  }
+
+  const { control, reset, handleSubmit } = useForm<FormData>({
     defaultValues: {
-      features: athlete?.features || '',
-      tactics: athlete?.tactics || ''
+      features: athlete.features || '',
+      tactics: athlete.tactics || '',
     }
   });
 
-  const { theme } = useTheme(); 
-
-  useEffect(() => {
-    const ath = athletes.find(athlete => athlete.AthleteId === parseInt(athleteId))
-    if(ath !== undefined){
-      setAthlete(ath)
-    } else {
-      router.back()
-    }
-  }, []);
+  const showNotification = (message: string, type: 'success' | 'danger') => {
+    showMessage({
+      message,
+      type,
+      duration: 500,
+      floating: true,
+      style: styles.notification,
+      icon: () => (
+        <Ionicons 
+          name={type === 'success' ? 'checkmark-circle-outline' : 'alert-circle-outline'} 
+          size={24} 
+          color='#fff' 
+        />
+      )
+    });
+  };
 
   const onSubmit = async (data: FormData) => {
-    if (!athlete) return;
-
     try {
-      const updatedAthlete = {
-        ...athlete,
-        features: data.features,
-        tactics: data.tactics
-      };
-
       await updateAthlete(athlete.AthleteId, data.features, data.tactics);
-      setAthlete(updatedAthlete);
+      showNotification('Informazioni aggiornate con successo', 'success');
       setIsEditing(false);
     } catch (error) {
-      alert(error);
+      showNotification('Errore durante l\'aggiornamento', 'danger');
     }
   };
 
-  const handleModifyAthleteInfos = () => {
-    // Reset form with current athlete values when entering edit mode
-    reset({
-      features: athlete?.features || '',
-      tactics: athlete?.tactics || ''
-    });
-    setIsEditing(true);
-  };
-
-  const showDeleteMessage = () => {
-    showMessage({
-      message: 'Atleta Eliminato',
-      type: 'danger',
-      floating: true,
-      style: {
-        display: 'flex', 
-        flexDirection: 'row', 
-        alignItems: 'center', 
-        justifyContent: 'flex-start',
-        gap: 10,
-      }, 
-      icon: () => <Ionicons name='checkmark-circle-outline' size={24} color='#fff' />
-    })
-  }
-
   const handleDeleteAthlete = () => {
-    deleteAthlete(parseInt(athleteId))
-      .then(result => {
-        setAthlete(null);
-        // messaggio di eliminazione con FlashCard
-        showDeleteMessage(); 
-        router.back();
-      })
-      .catch(error => alert(error));
+    Alert.alert(
+      'Conferma eliminazione',
+      `Sei sicuro di voler eliminare ${athlete.firstname} ${athlete.lastname}?`,
+      [
+        { text: 'Annulla', style: 'cancel' },
+        {
+          text: 'Elimina',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              await deleteAthlete(parseInt(athleteId));
+              showNotification('Atleta eliminato con successo', 'success');
+              router.back();
+            } catch (error) {
+              showNotification('Errore durante l\'eliminazione', 'danger');
+            }
+          },
+        },
+      ]
+    );
   };
 
-  const handleCancel = () => {
-    // Reset form to current athlete values when cancelling
-    reset({
-      features: athlete?.features || '',
-      tactics: athlete?.tactics || ''
-    });
-    setIsEditing(false);
-  };
+  const InfoSection = ({ title, value, controlName }: { 
+    title: string, 
+    value: string, 
+    controlName: keyof FormData 
+  }) => (
+    <View style={styles.section}>
+      <Text style={[styles.sectionTitle, { color: theme.textPrimary }]}>{title}</Text>
+      {isEditing ? (
+        <Controller
+          control={control}
+          name={controlName}
+          rules={{ required: false }}
+          render={({ field: { onChange, value, onBlur } }) => (
+            <TextInput
+              style={[styles.input, { 
+                color: theme.textPrimary,
+                borderColor: theme.textSecondary,
+                backgroundColor: theme.background === '#fff' ? '#f5f5f5' : '#2a2a2a'
+              }]}
+              onChangeText={onChange}
+              onBlur={onBlur}
+              value={value}
+              multiline
+              textAlignVertical="top"
+              placeholderTextColor={theme.textSecondary}
+              placeholder={`Inserisci ${title.toLowerCase()}...`}
+            />
+          )}
+        />
+      ) : (
+        <Text style={[styles.sectionText, { color: theme.textSecondary }]}>
+          {value || `Nessuna ${title.toLowerCase()} inserita`}
+        </Text>
+      )}
+    </View>
+  );
+
+  const ActionButton = ({ 
+    onPress, 
+    label, 
+    icon, 
+    color 
+  }: {
+    onPress: () => void,
+    label: string,
+    icon: string,
+    color: string
+  }) => (
+    <Pressable 
+      onPress={onPress} 
+      style={({ pressed }) => [
+        styles.button,
+        { backgroundColor: color },
+        pressed && styles.buttonPressed
+      ]}
+    >
+      <Text style={styles.buttonLabel}>{label}</Text>
+      <Ionicons name={icon as any} size={24} color="#fff" />
+    </Pressable>
+  );
 
   return (
-    <View style={[styles.mainContainer, {backgroundColor: theme.background }]}>
+    <ScrollView 
+      style={[styles.mainContainer, { backgroundColor: theme.background }]}
+      contentContainerStyle={styles.contentContainer}
+    >
       <View style={styles.headerContainer}>
-        <Text style={[styles.athleteName, {color: theme.textPrimary}]}>{athlete?.firstname + " " + athlete?.lastname}</Text>
+        <Text style={[styles.athleteName, { color: theme.textPrimary }]}>
+          {athlete.firstname} {athlete.lastname}
+        </Text>
       </View>
 
-      <View style={styles.container}>
-        <Text style={[styles.label, {color: theme.textPrimary}]}>Caratteristiche</Text>
-        {isEditing ? (
-          <Controller
-            control={control}
-            name="features"
-            rules={{ required: false }}
-            render={({ field: { onChange, value, onBlur } }) => (
-              <TextInput
-                style={[styles.input, {color: theme.textPrimary}]}
-                onChangeText={onChange}
-                onBlur={onBlur}
-                value={value}
-                multiline
-                textAlignVertical="top"
-              />
-            )}
-          />
-        ) : (
-          <Text style={[styles.text, {color: theme.textSecondary}]}>{athlete?.features}</Text>
-        )}
-      </View>
-
-      <View style={styles.container}>
-        <Text style={[styles.label, {color: theme.textPrimary}]}>Punti Deboli</Text>
-        {isEditing ? (
-          <Controller
-            control={control}
-            name="tactics"
-            rules={{ required: false }}
-            render={({ field: { onChange, value, onBlur } }) => (
-              <TextInput
-                style={[styles.input, {color: theme.textSecondary}]}
-                onChangeText={onChange}
-                onBlur={onBlur}
-                value={value}
-                multiline
-                textAlignVertical="top"
-              />
-            )}
-          />
-        ) : (
-          <Text style={[styles.text, {color: theme.textSecondary}]}>{athlete?.tactics}</Text>
-        )}
-      </View>
-
-      {/* <View style={styles.container}>
-        <Text style={styles.label}>Statistiche</Text>
-        <Divider />
-      </View> */}
+      <InfoSection title="Caratteristiche" value={athlete.features} controlName="features" />
+      <InfoSection title="Punti Deboli" value={athlete.tactics} controlName="tactics" />
 
       <View style={styles.buttonContainer}>
         {isEditing ? (
           <>
-            <Pressable 
-              onPress={handleSubmit(onSubmit)} 
-              style={[styles.button, {backgroundColor: '#2a9d8f'}]}
-            >
-              <Text style={styles.buttonLabel}>Salva</Text>
-              <Ionicons name="checkmark" size={24} color="#fff" />
-            </Pressable>
-            <Pressable 
-              onPress={handleCancel} 
-              style={[styles.button, {backgroundColor: '#e76f51'}]}
-            >
-              <Text style={styles.buttonLabel}>Annulla</Text>
-              <Ionicons name="close" size={24} color="#fff" />
-            </Pressable>
+            <ActionButton
+              onPress={handleSubmit(onSubmit)}
+              label="Salva"
+              icon="checkmark"
+              color="#2a9d8f"
+            />
+            <ActionButton
+              onPress={() => {
+                reset();
+                setIsEditing(false);
+              }}
+              label="Annulla"
+              icon="close"
+              color="#e76f51"
+            />
           </>
         ) : (
           <>
-            <Pressable 
-              onPress={handleModifyAthleteInfos} 
-              style={[styles.button, {backgroundColor: '#264653'}]}
-            >
-              <Text style={styles.buttonLabel}>Modifica</Text>
-              <Ionicons name="build-outline" size={24} color="#fff" />
-            </Pressable>
-            <Pressable 
-              onPress={handleDeleteAthlete} 
-              style={[styles.button, {backgroundColor: '#e76f51'}]}
-            >
-              <Text style={styles.buttonLabel}>Elimina</Text>
-              <Ionicons name="trash-bin" size={24} color="#fff" />
-            </Pressable>
+            <ActionButton
+              onPress={() => setIsEditing(true)}
+              label="Modifica"
+              icon="build-outline"
+              color="#264653"
+            />
+            <ActionButton
+              onPress={handleDeleteAthlete}
+              label="Elimina"
+              icon="trash-bin"
+              color="#e76f51"
+            />
           </>
         )}
       </View>
-
-    </View>
+    </ScrollView>
   );
 };
 
@@ -206,59 +201,70 @@ export default AthleteDetailPage;
 
 const styles = StyleSheet.create({
   mainContainer: {
-    display: 'flex',
-    flexGrow: 1,
-    padding: 10,
-    justifyContent: 'space-around',
+    flex: 1,
+  },
+  contentContainer: {
+    padding: 16,
+    gap: 20,
   },
   headerContainer: {
-    display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
+    marginBottom: 20,
   },
-  container: {
-    marginVertical: 10,
-    borderBottomWidth: 0.5, 
+  section: {
+    marginBottom: 20,
   },
-  text: {
-    marginLeft: 5,
-    marginTop: 5 
-  }, 
   athleteName: {
     fontSize: 32,
-    fontFamily: 'RobotoBold'
+    fontFamily: 'RobotoBold',
+    textAlign: 'center',
   },
-  label: {
-    fontSize: 18,
-    fontFamily: 'RobotoBold'
+  sectionTitle: {
+    fontSize: 20,
+    fontFamily: 'RobotoBold',
+    marginBottom: 10,
+  },
+  sectionText: {
+    fontSize: 16,
+    lineHeight: 24,
+    marginLeft: 5,
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    padding: 10,
-    marginVertical: 5,
-    minHeight: 100,
-    textAlignVertical: 'top'
+    borderRadius: 8,
+    padding: 12,
+    minHeight: 120,
+    fontSize: 16,
+    lineHeight: 24,
   },
   buttonContainer: {
-    display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-evenly'
+    justifyContent: 'space-evenly',
+    marginTop: 20,
   },
   button: {
-    marginVertical: 10,
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    borderRadius: 5,
-    display: 'flex',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
+    borderRadius: 8,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minWidth: 140,
+  },
+  buttonPressed: {
+    opacity: 0.8,
+    transform: [{ scale: 0.98 }],
   },
   buttonLabel: {
     color: '#fff',
-    textAlign: 'center',
-    fontSize: 18,
+    fontSize: 16,
     fontFamily: 'RobotoBold',
-    marginRight: 10
-  }
+    marginRight: 8,
+  },
+  notification: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    gap: 10,
+  },
 });

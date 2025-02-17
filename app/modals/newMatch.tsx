@@ -9,6 +9,7 @@ import { useTheme } from '@/context/ThemeProvider';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { showMessage } from 'react-native-flash-message';
 import { useDatabaseStore } from '@/context/DatabaseProvider';
+import { lightTheme } from '@/constants/Colors';
 
 type MatchFormData = Omit<Match, 'id'>;
 
@@ -40,6 +41,7 @@ const NewMatch = () => {
     }
 
     const handleSubmit = async (data: MatchFormData) => {
+        console.log(data)
         addMatch(data)
          .then()
          .catch(error => Alert.alert("Errore inserimento Incontro", error))

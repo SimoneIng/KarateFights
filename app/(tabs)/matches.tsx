@@ -12,16 +12,14 @@ import { useDatabaseStore } from '@/context/DatabaseProvider';
 
 const Matches = () => {
   
-  const { theme, isDark } = useTheme(); 
+  const { theme } = useTheme(); 
   const { matches, isLoadingMatches } = useDatabaseStore() 
 
-  const [filteredMatches, setFilteredMatches] = useState<MatchWithAthletes[]>([]); 
-
   useEffect(() => {
-    if(!isLoadingMatches){
-      setFilteredMatches(matches)
-    }
-  }, [isLoadingMatches]);
+    !isLoadingMatches && setFilteredMatches(matches)
+  }, [isLoadingMatches])
+
+  const [filteredMatches, setFilteredMatches] = useState<MatchWithAthletes[]>([]); 
 
   const filterMatches = useCallback((searchString: string) => {
     if (!searchString.trim()) {
@@ -35,7 +33,7 @@ const Matches = () => {
       match.aoAthlete.lastname.toLowerCase().includes(searchString.toLowerCase())
     )
     setFilteredMatches(filter)
-  }, [filteredMatches]);
+  }, [matches]);
 
   const handleNewMatchPressButton = () => {
     router.push('/modals/selectTournament')
@@ -47,10 +45,10 @@ const Matches = () => {
 
   return (
     <View style={[styles.container, {backgroundColor: theme.background}]}>
-      
-      <SearchBar 
-        onSearch={filterMatches} 
-      />
+
+      <SearchBar onSearch={(searchString) => {
+        filterMatches(searchString); 
+      }} />
 
       <CustomButton 
         title='Aggiungi Incontro' 

@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Alert, ScrollView } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { MatchWithAthletes, Tournament } from '@/database/types';
 import { router, useLocalSearchParams } from 'expo-router';
@@ -13,8 +13,6 @@ import { useDatabaseStore } from '@/context/DatabaseProvider';
 const TournamentDetailPage = () => {
 
   const { tournaments, matches, deleteTournament } = useDatabaseStore(); 
-  const [tournament, setTournament] = useState<Tournament | null>(null); 
-  const [tournamentMatches, setTournamentMatches] = useState<MatchWithAthletes[]>([]); 
 
   const { theme } = useTheme(); 
   const { top } = useSafeAreaInsets(); 
@@ -22,46 +20,50 @@ const TournamentDetailPage = () => {
   const { id } = useLocalSearchParams(); 
   const tournamentId = id as string; 
 
+  const tournament = tournaments.find(tournament => tournament.id === parseInt(tournamentId))
+  const tournamentMatches = matches.filter(match => match.tournamentId === parseInt(tournamentId))
 
-  useEffect(() => {
-    const tourn = tournaments.find(tournament => tournament.id === parseInt(tournamentId))
-    const matcs = matches.filter(match => match.tournamentId === parseInt(tournamentId))
+  if(!tournament) return null; 
 
-    if(tourn !== undefined && matcs !== undefined){
-      setTournament(tourn)
-      setTournamentMatches(matcs)
-    } else {
-      router.back() 
-    }
-
-  }, []); 
-
-  const showDeleteMessage = () => {
+  const showNotification = (message: string, type: 'success' | 'danger') => {
     showMessage({
-      message: 'Gara Eliminata',
-      type: 'danger',
+      message,
+      duration: 500,
+      type,
       floating: true,
-      style: {
-        display: 'flex', 
-        flexDirection: 'row', 
-        alignItems: 'center', 
-        justifyContent: 'flex-start',
-        gap: 10,
-      }, 
-      icon: () => <Ionicons name='checkmark-circle-outline' size={24} color='#fff' />
-    })
-  }
+      style: styles.notification,
+      icon: () => (
+        <Ionicons 
+          name={type === 'success' ? 'checkmark-circle-outline' : 'alert-circle-outline'} 
+          size={24} 
+          color='#fff' 
+        />
+      )
+    });
+  };
 
-  const handleDeleteTournament = () => {
-    deleteTournament(parseInt(tournamentId))
-     .then(result => {
-      setTournament(null); 
-      // messaggio di eliminazione gara 
-      showDeleteMessage(); 
-      router.back();
-     })
-     .catch(error => alert(error)); 
-  }
+  const handleDeleteATournament = () => {
+    Alert.alert(
+      'Conferma eliminazione',
+      `Sei sicuro di voler eliminare ${tournament.name}?`,
+      [
+        { text: 'Annulla', style: 'cancel' },
+        {
+          text: 'Elimina',
+          style: 'destructive',
+          onPress: async () => {
+            try {
+              await deleteTournament(parseInt(tournamentId));
+              showNotification('Atleta eliminato con successo', 'success');
+              router.back();
+            } catch (error) {
+              showNotification('Errore durante l\'eliminazione', 'danger');
+            }
+          },
+        },
+      ]
+    );
+  };
 
   const handleNewMatch = () => {
 
@@ -77,27 +79,36 @@ const TournamentDetailPage = () => {
     router.push(`/match/${id.toString()}`)
   }
 
+  const renderDate = () => {
+    const date = new Date(tournament.date);
+    return date.toLocaleDateString('it-IT', { 
+        day: '2-digit', 
+        month: 'long', 
+        year: 'numeric' 
+    });
+  }
+
   return (
     <>
     <View style={[styles.header, {paddingTop: top+10, backgroundColor: theme.background}]}>
       <TouchableOpacity onPress={() => router.back()}>
         <Ionicons name='arrow-back-circle' size={36} color={theme.textPrimary} />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.header} onPress={handleDeleteTournament}>
+      <TouchableOpacity style={styles.header} onPress={handleDeleteATournament}>
         <Ionicons name='trash-bin' size={24} color={theme.error} />
       </TouchableOpacity>
     </View>
-    <View style={[styles.mainContainer, {backgroundColor: theme.background}]} >  
+    <ScrollView contentContainerStyle={[styles.mainContainer, {backgroundColor: theme.background}]} >  
       <View style={styles.headerContainer} >
         <Text style={[styles.mainLabel, {color: theme.textPrimary, fontFamily: 'RobotoBold'}]} >{tournament?.name}</Text>
-        <Text style={[styles.submainLabel, {color: theme.textSecondary, fontFamily: 'RobotoRegular'}]} >{tournament?.date}</Text>
+        <Text style={[styles.submainLabel, {color: theme.textSecondary, fontFamily: 'RobotoRegular'}]} >{renderDate()}</Text>
       </View>
       {/* Lista incontri con scroll orizzontale */}
       <View style={{gap: 10, flex: 1}}>
         <CustomButton title='Aggiungi Incontro' handlePress={handleNewMatch} iconName='add-circle-outline' />
         <MatchList matches={tournamentMatches} onSelectedMatch={matchSelection} />
       </View>
-    </View>
+    </ScrollView>
     </>
   )
     
@@ -123,6 +134,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     display: 'flex', 
     alignItems: 'center', 
+    textAlign: 'center', 
     marginTop: 10, 
     marginBottom: 20,
     gap: 5
@@ -134,9 +146,16 @@ const styles = StyleSheet.create({
   mainLabel: {
     fontSize: 26, 
     fontWeight: '600', 
+    marginHorizontal: 40,
   }, 
   submainLabel: {
     fontSize: 16, 
     fontWeight: '500', 
+  },
+  notification: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    gap: 10,
   }
 });

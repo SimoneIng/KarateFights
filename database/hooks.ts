@@ -412,19 +412,19 @@ export function useMatches() {
           tournamentId, aoAthleteId, akaAthleteId,
           aoScore, akaScore,
           aoKizami, aoGyakuJodan, aoGyakuChudan, 
-          aoJodanMawashi, aoChudanMawashi, aoUramawashi,
+          aoJodanMawashi, aoChudanMawashi, aoUramawashi, aoSweep, 
           akaKizami, akaGyakuJodan, akaGyakuChudan, 
-          akaJodanMawashi, akaChudanMawashi, akaUramawashi,
+          akaJodanMawashi, akaChudanMawashi, akaUramawashi, akaSweep, 
           matchDescription, aoSummary, akaSummary
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
       `, [
         match.tournamentId, match.aoAthleteId, match.akaAthleteId,
         match.aoScore, match.akaScore,
         match.aoKizami, match.aoGyakuJodan, match.aoGyakuChudan, 
-        match.aoJodanMawashi, match.aoChudanMawashi, match.aoUramawashi,
+        match.aoJodanMawashi, match.aoChudanMawashi, match.aoUramawashi, match.aoSweep,
         match.akaKizami, match.akaGyakuJodan, match.akaGyakuChudan,  
-        match.akaJodanMawashi, match.akaChudanMawashi, match.akaUramawashi,
-        match.matchDescription, match.aoSummary, match.akaSummary
+        match.akaJodanMawashi, match.akaChudanMawashi, match.akaUramawashi, match.akaSweep, 
+        match.matchDescription, match.aoSummary, match.akaSummary, 
       ]);
       return result.lastInsertRowId;
     } catch (error) {

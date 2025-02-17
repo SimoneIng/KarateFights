@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SplashScreen, Stack } from 'expo-router';
-import { ThemeProvider } from '@/context/ThemeProvider';
+import { ThemeProvider, themes, useTheme } from '@/context/ThemeProvider';
 import { useFonts } from 'expo-font'; 
 import { SessionProvider } from '@/context/SessionProvider';
 import { initializeDatabase } from '@/database/Database';
@@ -8,7 +8,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import AthleteHeader from '@/components/headers/AthleteHeader';
 import FlashMessage from "react-native-flash-message";
-import { Alert } from 'react-native';
+import { ActivityIndicator, Alert, View } from 'react-native';
 import { useDatabaseStore } from '@/context/DatabaseProvider';
 import SettingsHeader from '@/components/headers/SettingsHeader';
 import * as Updates from 'expo-updates'; 
@@ -71,6 +71,8 @@ const StackLayout = () => {
 const RootLayout = () => {
 
   const { fetchAthletes, fetchMatches, fetchTournaments } = useDatabaseStore()
+  const [isCheckingUpdate, setIsCheckingUpdate] = useState(false);
+  const { theme } = useTheme(); 
 
   const [loaded] = useFonts({
     'RobotoExtraLight': require('../assets/fonts/RobotoMono-ExtraLight.ttf'),  
@@ -80,26 +82,36 @@ const RootLayout = () => {
     'RobotoBold': require('../assets/fonts/RobotoMono-Bold.ttf'), 
   }); 
 
+  async function checkForUpdates() {
+    try {
+      const update = await Updates.checkForUpdateAsync();
+      
+      if (update.isAvailable) {
+        await Updates.fetchUpdateAsync();
+        // Riavvia l'app per applicare l'aggiornamento
+        await Updates.reloadAsync();
+      }
+    } catch (error) {
+      // Gestione degli errori
+      console.error('Errore durante il controllo degli aggiornamenti:', error);
+    }
+  }
+
   useEffect(() => {
-    async function checkForUpdates() {
+    async function checkUpdate() {
+      setIsCheckingUpdate(true);
       try {
-        // Controlla se è disponibile un aggiornamento
-        const update = await Updates.checkForUpdateAsync();
-        if (update.isAvailable) {
-          // Scarica l'aggiornamento
-          await Updates.fetchUpdateAsync();
-          // Applica l'aggiornamento e riavvia l'app
-          await Updates.reloadAsync();
+        // Verifica se siamo in modalità development
+        if (!__DEV__) {
+          await checkForUpdates();
         }
-      } catch (error) {
-        // Gestisci eventuali errori
-        console.log(error)
-        Alert.alert("Errore durante l'aggiornamento", error as string);
+      } finally {
+        setIsCheckingUpdate(false);
       }
     }
-
-    checkForUpdates();
-  }, []);
+    
+    checkUpdate();
+}, []);
 
   useEffect(() => {
     const setupDatabase = async () => {
@@ -123,6 +135,15 @@ const RootLayout = () => {
   
   if(!loaded){
     return null; 
+  }
+
+  if(isCheckingUpdate){
+    return (
+      // Mostra un loader o splash screen mentre verifica gli aggiornamenti
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color={theme.primary} />
+      </View>
+    );
   }
 
   return (

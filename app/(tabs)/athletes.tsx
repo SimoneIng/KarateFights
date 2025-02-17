@@ -1,7 +1,6 @@
-import { View, StyleSheet, Alert, Text } from 'react-native'
+import { View, StyleSheet, ScrollView } from 'react-native'
 import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react'
 import { useTheme } from '@/context/ThemeProvider'
-import { StatusBar } from 'expo-status-bar';
 import SearchBar from '@/components/commons/SearchBar';
 import AthletesList from '@/components/lists/AthleteList';
 import { router } from 'expo-router';
@@ -16,7 +15,11 @@ const Athletes = () => {
   const { theme } = useTheme(); 
   const { athletes, isLoadingAthletes } = useDatabaseStore()
 
-  const [filteredAthletes, setFilteredAthletes] = useState<Athlete[]>([]);  
+  useEffect(() => {
+    !isLoadingAthletes && setFilteredAthletes(athletes)
+  }, [isLoadingAthletes])
+
+  const [filteredAthletes, setFilteredAthletes] = useState<Athlete[]>([]); 
 
   const filterAthletes = useCallback((searchString: string) => {
     if (!searchString.trim()) {
@@ -35,14 +38,8 @@ const Athletes = () => {
     router.navigate(`/athlete/${id.toString()}`); 
   }, []);
 
-  useEffect(() => {
-    if(!isLoadingAthletes){
-      setFilteredAthletes(athletes)
-    }
-  }, [isLoadingAthletes])
-
   {/* Bottom Sheet */}
-  const snapPoints = useMemo(() => ['90%'], []); 
+  const snapPoints = useMemo(() => ['70%'], []); 
 
   const renderBackdrop = useCallback((props: any) => 
     <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props} />
@@ -59,7 +56,7 @@ const Athletes = () => {
   }
 
   return (
-    <View style={[styles.container, {backgroundColor: theme.background}]}>
+    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={[styles.container, {backgroundColor: theme.background}]}>
       <SearchBar onSearch={filterAthletes} />
       <CustomButton 
         title='Aggiungi Atleta' 
@@ -85,7 +82,7 @@ const Athletes = () => {
         </BottomSheetView>
       </BottomSheetModal>
 
-    </View>
+    </ScrollView>
   );
 };
 

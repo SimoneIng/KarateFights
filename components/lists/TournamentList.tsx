@@ -19,6 +19,15 @@ const TorunamentCard = ({ tournament, onPress }:TournamentItemProps) => {
     
     const { theme } = useTheme(); 
 
+    const renderDate = () => {
+        const date = new Date(tournament.date)
+        return date.toLocaleDateString('it-IT', { 
+            day: '2-digit', 
+            month: 'long', 
+            year: 'numeric' 
+        });
+    }
+
     return (
         <TouchableOpacity
          onPress={() => onPress(tournament.id)} 
@@ -26,7 +35,7 @@ const TorunamentCard = ({ tournament, onPress }:TournamentItemProps) => {
         >
             <View style={styles.container}>
                 <Text style={[styles.title, {color: theme.accent}]}>{tournament.name}</Text>
-                <Text style={[styles.subTitle, {color: theme.accent}]}>{tournament.date}</Text>
+                <Text style={[styles.subTitle, {color: theme.accent}]}>{renderDate()}</Text>
             </View>
             <Ionicons name='arrow-forward-circle' size={24} color={theme.accent} />
         </TouchableOpacity>

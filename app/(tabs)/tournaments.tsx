@@ -14,16 +14,14 @@ import { useDatabaseStore } from '@/context/DatabaseProvider';
 
 const Tournaments = () => {
   
-  const { theme, isDark } = useTheme(); 
+  const { theme } = useTheme(); 
   const { tournaments, isLoadingTournaments } = useDatabaseStore(); 
 
-  const [filteredTournaments, setFilteredTournaments] = useState<Tournament[]>([]); 
-
   useEffect(() => {
-    if(!isLoadingTournaments){
-      setFilteredTournaments(tournaments)
-    }
-  }, [isLoadingTournaments]);
+    !isLoadingTournaments && setFilteredTournaments(tournaments)
+  }, [isLoadingTournaments])
+
+  const [filteredTournaments, setFilteredTournaments] = useState<Tournament[]>([]); 
 
   const filterTournaments = useCallback((searchString: string) => {
     if (!searchString.trim()) {
@@ -41,7 +39,7 @@ const Tournaments = () => {
   }
 
   {/* Bottom Sheet */}
-  const snapPoints = useMemo(() => ['90%'], []); 
+  const snapPoints = useMemo(() => ['60%'], []); 
 
   const renderBackdrop = useCallback((props: any) => 
     <BottomSheetBackdrop appearsOnIndex={0} disappearsOnIndex={-1} {...props} />

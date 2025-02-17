@@ -295,6 +295,7 @@ const styles = StyleSheet.create({
     padding: 10,
     minHeight: 70,
     textAlignVertical: 'top',
+    marginHorizontal: 5, 
   },
   addMatchBanner: {
     marginVertical: 20,
@@ -304,6 +305,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginHorizontal: 10, 
+    marginBottom: 60, 
   },
   addMatchLabel: {
     fontSize: 18,
