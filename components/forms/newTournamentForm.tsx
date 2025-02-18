@@ -99,9 +99,9 @@ const NewTournamentForm: React.FC<Props> = ({ onClose }) => {
           
           <View>
             <Text style={[styles.textLabel, {color: theme.textPrimary}]}>Titolo</Text>
-            <TextInput style={[styles.input, {color: theme.textPrimary}]}
+            <TextInput style={[styles.input, {color: theme.textSecondary}]}
               placeholder='Inserisci Titolo'
-              placeholderTextColor={theme.textPrimary}
+              placeholderTextColor={theme.textSecondary}
               onChangeText={(title) => setTitle(title)}
               />
             {error && <Text style={{color: 'red', fontFamily: 'RobotoMedium'}}>Titolo troppo corto</Text>}  
@@ -109,8 +109,8 @@ const NewTournamentForm: React.FC<Props> = ({ onClose }) => {
 
           <Text style={[styles.textLabel, {color: theme.textPrimary}]}>Data</Text>
           <Pressable style={[styles.button, styles.pickerButton, {backgroundColor: theme.cardBackground}]} onPress={showDatePicker} >
-            <Ionicons name='calendar-clear' size={24} color={theme.accent} />
-            <Text style={[styles.buttonText, {color: theme.accent}]} >{date.toLocaleDateString()}</Text>
+            <Ionicons name='calendar-clear' size={24} color={theme.textPrimary} />
+            <Text style={[styles.buttonText, {color: theme.textSecondary}]} >{date.toLocaleDateString()}</Text>
           </Pressable>
 
           <DateTimePickerModal

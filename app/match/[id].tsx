@@ -95,6 +95,19 @@ const MatchScreen = () => {
     );
   };
 
+  const renderDate = () => {
+    const dateToRender = new Date(Date.parse(match.tournament.date))
+
+    const date = dateToRender.toLocaleDateString('it-IT', { 
+      day: '2-digit', 
+      month: 'long', 
+      year: 'numeric' 
+    });
+
+    return date === '' ? match.tournament.date : date; 
+  };
+  
+
   const TextSection = ({ 
     title, 
     value, 
@@ -115,8 +128,7 @@ const MatchScreen = () => {
             <TextInput
               style={[styles.input, { 
                 color: theme.textPrimary,
-                borderColor: theme.border,
-                backgroundColor: theme.background === '#fff' ? '#f5f5f5' : '#2a2a2a'
+                backgroundColor: 'rgba(0,0,0,0.05)',
               }]}
               onChangeText={onChange}
               onBlur={onBlur}
@@ -184,7 +196,7 @@ const MatchScreen = () => {
             {match.tournament.name}
           </Text>
           <Text style={[styles.label, { color: theme.textSecondary }]}>
-            Data: {match.tournament.date}
+            {renderDate()}
           </Text>
         </View>
 
@@ -217,7 +229,7 @@ const MatchScreen = () => {
             <Ionicons 
               name={techniquesOpen ? 'arrow-up-circle' : 'arrow-forward-circle'} 
               size={24} 
-              color={theme.accent} 
+              color={theme.textSecondary} 
             />
           </TouchableOpacity>
 
@@ -330,13 +342,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     padding: 16,
+    gap: 10, 
     backgroundColor: 'rgba(0,0,0,0.05)',
     borderRadius: 12,
-    marginVertical: 16,
+    marginVertical: 10,
   },
   athleteContainer: {
     alignItems: 'center',
-    gap: 4,
+    gap: 4
   },
   athleteName: {
     fontSize: 16,
@@ -411,7 +424,6 @@ const styles = StyleSheet.create({
     lineHeight: 24,
   },
   input: {
-    borderWidth: 1,
     borderRadius: 8,
     padding: 12,
     minHeight: 120,

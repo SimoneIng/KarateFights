@@ -18,8 +18,8 @@ const CustomButton = ({title, iconName, handlePress}: Props) => {
       style={[styles.container, {backgroundColor: theme.cardBackground }]} 
       onPress={handlePress}
     >
-      <Text style={[styles.text, {color: theme.accent, fontFamily: 'RobotoMedium'}]}>{title}</Text> 
-      <Ionicons name={iconName} size={24} color={theme.accent} />
+      <Text style={[styles.text, {color: theme.textPrimary, fontFamily: 'RobotoMedium'}]}>{title}</Text> 
+      <Ionicons name={iconName} size={24} color={theme.textPrimary} />
     </TouchableOpacity>
   )
 }

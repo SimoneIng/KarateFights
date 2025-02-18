@@ -14,7 +14,7 @@ const AthleteHeader = () => {
     return (
         <View style={[styles.container, {paddingTop: top+20, backgroundColor: theme.background}]}>
             <TouchableOpacity onPress={() => router.back()}>
-                <Ionicons name='arrow-back-circle' size={41} color={theme.accent} />
+                <Ionicons name='arrow-back-circle' size={41} color={theme.textSecondary} />
             </TouchableOpacity>
             <StatusBar style={isDark ? 'light' : 'dark'} />
         </View>

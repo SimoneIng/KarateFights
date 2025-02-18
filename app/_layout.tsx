@@ -17,17 +17,22 @@ SplashScreen.preventAutoHideAsync();
 
 const StackLayout = () => {
 
+  const { theme } = useTheme();
+
   return (
     <Stack screenOptions={{
       headerShown: false,
-    }}>
+      contentStyle: {
+        backgroundColor: theme.background
+      }
+      }}>
       <Stack.Screen name='index' /> 
       <Stack.Screen name='(tabs)' />
       <Stack.Screen name='(auth)' />
       
       {/* Modals */}
       <Stack.Screen name="modals/newMatch" options={{
-        presentation: 'modal', 
+        presentation: 'fullScreenModal', 
         headerTitle: 'Aggiungi Incontro', 
         headerTitleAlign: 'center', 
         animation: 'slide_from_right'

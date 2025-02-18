@@ -23,11 +23,11 @@ const TabHeader = ({title}: Props) => {
                 ios: top
             })
         }]}>
-            <Text style={[styles.title, {color: theme.accent}]}>{title}</Text>
+            <Text style={[styles.title, {color: theme.textPrimary}]}>{title}</Text>
             <TouchableOpacity
                 onPress={() => router.push("/modals/settings")}
             >
-                <Ionicons name='settings' size={24} color={theme.accent} /> 
+                <Ionicons name='settings' size={24} color={theme.textPrimary} /> 
             </TouchableOpacity>
         </View>
     )

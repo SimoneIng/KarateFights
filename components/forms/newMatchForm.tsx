@@ -238,8 +238,8 @@ const NewMatchForm = ({ tournament, akaAthlete, aoAthlete, onSubmit }: Props) =>
 
         {/* Salva Incontro Button */}
         <TouchableOpacity style={[styles.addMatchBanner, {backgroundColor: theme.cardBackground}]} onPress={handleSubmit(onSubmit)}>
-          <Text style={[styles.addMatchLabel, {color: theme.accent}]}>Salva Incontro</Text>
-          <Ionicons name="bookmark" size={24} color={theme.accent} />
+          <Text style={[styles.addMatchLabel, {color: theme.textPrimary}]}>Salva Incontro</Text>
+          <Ionicons name="bookmark" size={24} color={theme.textPrimary} />
         </TouchableOpacity>
       </ScrollView>
     </KeyboardAvoidingView>

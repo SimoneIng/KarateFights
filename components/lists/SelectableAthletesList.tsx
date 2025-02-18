@@ -45,7 +45,7 @@ const SelectableAthletesList = ({ athletes, onToggleSelection, selectedAthletes 
           onToggleSelection={onToggleSelection}
           isSelected={indexInSelection !== -1}
           backgroundColor={backgroundColor}
-          textColor={indexInSelection !== -1 ? '#fff' : theme.accent}
+          textColor={indexInSelection !== -1 ? '#fff' : theme.textPrimary}
         />
       );
     },

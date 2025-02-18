@@ -43,9 +43,11 @@ const SearchBar: React.FC<SearchBarProps> = ({
     <View style={[styles.searchContainer, containerStyle, {borderColor: theme.textPrimary, backgroundColor: 'trasparent'}]}>
       <Ionicons name="search" size={20} color={theme.textPrimary} />
       <TextInput
-        style={[styles.input, inputStyle, {color: theme.textPrimary}]}
+        style={[styles.input, inputStyle, {color: theme.textPrimary},
+          
+        ]}
         placeholder={placeholder}
-        placeholderTextColor={theme.textPrimary}
+        placeholderTextColor={theme.textSecondary}
         value={searchQuery}
         onChangeText={handleSearch}
         clearButtonMode="while-editing"
@@ -67,14 +69,14 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 10,
     paddingVertical: 5,
-    borderWidth: 0.5,
+    borderWidth: 0.3,
     minHeight: 45
   },
   input: {
     flex: 1,
     marginLeft: 8,
     fontSize: 16,
-  },
+  }
 });
 
 export default SearchBar;

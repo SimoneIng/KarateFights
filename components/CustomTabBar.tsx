@@ -49,7 +49,7 @@ const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => 
             <Ionicons
               name={getIcon(route.name as RouteNames)}
               size={24}
-              color={isFocused ? '#fff' : theme.accent}
+              color={isFocused ? '#fff' : theme.textPrimary}
             />
           </TouchableOpacity>
         );

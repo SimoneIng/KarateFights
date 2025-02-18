@@ -23,7 +23,7 @@ const MatchCard = ({match, onPress}: MatchItemProps) => {
   return (
       <TouchableOpacity
        onPress={() => onPress(match.id)} 
-       style={[styles.MatchCard, {backgroundColor: theme.cardBackground}]}
+       style={[styles.MatchCard]}
       >   
           <View style={styles.matchSection}>
               <View style={{
@@ -32,8 +32,8 @@ const MatchCard = ({match, onPress}: MatchItemProps) => {
                 <Text style={[{color: theme.accent, fontFamily: 'RobotoMedium'}]}>Aka</Text>
                 <Ionicons name='ellipse' color='red' size={14} />
               </View>
-              <Text style={styles.matchLabel}>{match.aoAthlete.firstname + " " + match.aoAthlete.lastname}</Text>
-              <Text style={styles.matchSubLabel}>{match.aoScore}</Text>
+              <Text style={[styles.matchLabel, { color: theme.textPrimary }]}>{match.aoAthlete.firstname + " " + match.aoAthlete.lastname}</Text>
+              <Text style={[styles.matchSubLabel, { color: theme.textSecondary }]}>{match.aoScore}</Text>
           </View>
           <View style={styles.matchSection}>
           <View style={{
@@ -42,8 +42,8 @@ const MatchCard = ({match, onPress}: MatchItemProps) => {
                 <Text style={[{color: theme.accent, fontFamily: 'RobotoMedium'}]}>Ao</Text>
                 <Ionicons name='ellipse' color='blue' size={14} />
               </View>
-              <Text style={styles.matchLabel}>{match.akaAthlete.firstname + " " + match.akaAthlete.lastname}</Text>
-              <Text style={styles.matchSubLabel}>{match.akaScore}</Text>
+              <Text style={[styles.matchLabel, { color: theme.textPrimary }]}>{match.akaAthlete.firstname + " " + match.akaAthlete.lastname}</Text>
+              <Text style={[styles.matchLabel, { color: theme.textSecondary }]}>{match.akaScore}</Text>
           </View>
       </TouchableOpacity>
   )
@@ -65,7 +65,7 @@ const MatchList = ({ matches, onSelectedMatch }: MatchesListProps) => {
       
       ListEmptyComponent={() => (
           <View style={styles.emptyContainer}>
-              <Text style={[styles.text, {color: theme.accent}]}>Nessun Incontro</Text>
+              <Text style={[styles.text, {color: theme.textPrimary}]}>Nessun Incontro</Text>
           </View>
       )}
     />
@@ -83,10 +83,13 @@ const styles = StyleSheet.create({
       justifyContent: 'space-between', 
       width: '100%',
       overflow: 'hidden',
+      backgroundColor: 'rgba(0,0,0,0.05)',
+      gap: 5
   }, 
   matchLabel: {
     fontSize: 14, 
-    fontFamily: 'RobotoMedium'
+    fontFamily: 'RobotoMedium',
+    textAlign: 'center', 
   }, 
   matchSubLabel: {
     fontSize: 14, 

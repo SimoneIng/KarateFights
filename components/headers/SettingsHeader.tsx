@@ -14,7 +14,7 @@ const SettingsHeader = () => {
     return (
         <View style={[styles.container, {paddingTop: top+20, backgroundColor: theme.cardBackground}]}>
             <TouchableOpacity onPress={() => router.back()}>
-                <Ionicons name='arrow-back-circle' size={36} color={theme.accent} />
+                <Ionicons name='arrow-back-circle' size={36} color={theme.textPrimary} />
             </TouchableOpacity>
         </View>
     )

@@ -22,12 +22,12 @@ const AthleteCard = ({ athlete, onPress }:AthleteItemProps) => {
     return (
         <TouchableOpacity 
             onPress={() => onPress(athlete.AthleteId)} 
-            style={[styles.athleteCard, {backgroundColor: theme.cardBackground}]}
+            style={[styles.athleteCard]}
         >
-            <Text style={[styles.athleteName, {color: theme.accent}]}>
+            <Text style={[styles.athleteName, {color: theme.textPrimary}]}>
                 {athlete.firstname + " " + athlete.lastname}
             </Text>
-            <Ionicons name='arrow-forward-circle' size={24} color={theme.accent} />
+            <Ionicons name='arrow-forward-circle' size={24} color={theme.textPrimary} />
         </TouchableOpacity>
     )
 }
@@ -63,6 +63,7 @@ const styles = StyleSheet.create({
         display: 'flex', 
         flexDirection: 'row', 
         justifyContent: 'space-between', 
+        backgroundColor: 'rgba(0,0,0,0.05)',
     }, 
     athleteName: {
         textAlign: 'center', 

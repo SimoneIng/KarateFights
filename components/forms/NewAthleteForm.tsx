@@ -115,13 +115,13 @@ const NewAthleteForm = ({ onClose }: Props) => {
                   style={[
                     styles.input,
                     errors.firstName && styles.errorText,
-                    {color: theme.textPrimary, fontFamily: 'RobotoRegular'}
+                    {color: theme.textSecondary, fontFamily: 'RobotoRegular', borderColor: theme.border}
                   ]}
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
                   placeholder="Inserisci il nome"
-                  placeholderTextColor={theme.textPrimary}
+                  placeholderTextColor={theme.textSecondary}
                 />
                 {errors.firstName && (
                   <Text style={styles.errorText}>
@@ -150,13 +150,13 @@ const NewAthleteForm = ({ onClose }: Props) => {
                   style={[
                     styles.input,
                     errors.lastName && styles.errorText,
-                    {color: theme.textPrimary, fontFamily: 'RobotoRegular'}
+                    {color: theme.textSecondary, fontFamily: 'RobotoRegular', borderColor: theme.border}
                   ]}
                   onBlur={onBlur}
                   onChangeText={onChange}
                   value={value}
                   placeholder="Inserisci il cognome"
-                  placeholderTextColor={theme.textPrimary}
+                  placeholderTextColor={theme.textSecondary}
                 />
                 {errors.lastName && (
                   <Text style={styles.errorText}>

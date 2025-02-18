@@ -22,7 +22,7 @@ const Profile = () => {
         <Text style={[styles.titleLabel, {color: theme.textPrimary, fontFamily: 'RobotoBold'}]}>{user?.lastname}</Text>
       </View>
 
-      <View style={{
+      {/* <View style={{
         flexDirection: 'column',
         gap: 10, 
         alignItems: 'center',
@@ -38,12 +38,12 @@ const Profile = () => {
           <Ionicons name='warning' size={24} color={theme.error} />
         </View>
         <Text style={{color: theme.textPrimary ,fontSize: 14, alignSelf: 'center', fontFamily: 'RobotoRegular'}}>Questa sezione è ancora da completare.</Text>
-      </View>
-
-      {/* <View style={styles.buttons}>
-        <CustomButton title='Cambia Tema' iconName='color-palette' handlePress={toggleTheme} />
-        <CustomButton title='Salva Dati' iconName='document' handlePress={handleSaveData} />
       </View> */}
+
+      <View style={styles.buttons}>
+        <CustomButton title='Cambia Tema' iconName='color-palette' handlePress={toggleTheme} />
+        {/* <CustomButton title='Salva Dati' iconName='document' handlePress={handleSaveData} /> */}
+      </View>
 
       <StatusBar style={isDark ? 'light' : 'dark'} />
     </View>

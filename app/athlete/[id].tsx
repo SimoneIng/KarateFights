@@ -13,7 +13,7 @@ type FormData = {
 };
 
 const AthleteDetailPage = () => {
-  const { theme } = useTheme();
+  const { theme, isDark } = useTheme();
   const { athletes, updateAthlete, deleteAthlete } = useDatabaseStore();
   const { id } = useLocalSearchParams();
   const athleteId = id as string;
@@ -98,8 +98,7 @@ const AthleteDetailPage = () => {
             <TextInput
               style={[styles.input, { 
                 color: theme.textPrimary,
-                borderColor: theme.textSecondary,
-                backgroundColor: theme.background === '#fff' ? '#f5f5f5' : '#2a2a2a'
+                backgroundColor: 'rgba(0,0,0,0.05)',
               }]}
               onChangeText={onChange}
               onBlur={onBlur}
@@ -209,18 +208,19 @@ const styles = StyleSheet.create({
   },
   headerContainer: {
     alignItems: 'center',
+    justifyContent: 'center', 
     marginBottom: 20,
   },
   section: {
     marginBottom: 20,
   },
   athleteName: {
-    fontSize: 32,
+    fontSize: 26,
     fontFamily: 'RobotoBold',
     textAlign: 'center',
   },
   sectionTitle: {
-    fontSize: 20,
+    fontSize: 18,
     fontFamily: 'RobotoBold',
     marginBottom: 10,
   },
@@ -230,7 +230,6 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
   input: {
-    borderWidth: 1,
     borderRadius: 8,
     padding: 12,
     minHeight: 120,

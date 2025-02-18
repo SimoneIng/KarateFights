@@ -80,17 +80,21 @@ const TournamentDetailPage = () => {
   }
 
   const renderDate = () => {
-    const date = new Date(tournament.date);
-    return date.toLocaleDateString('it-IT', { 
-        day: '2-digit', 
-        month: 'long', 
-        year: 'numeric' 
+    const dateToRender = new Date(Date.parse(tournament.date))
+
+    const date = dateToRender.toLocaleDateString('it-IT', { 
+      day: '2-digit', 
+      month: 'long', 
+      year: 'numeric' 
     });
-  }
+
+    return date === '' ? tournament.date : date; 
+  };
+  
 
   return (
-    <>
-    <View style={[styles.header, {paddingTop: top+10, backgroundColor: theme.background}]}>
+    <View style={[styles.container, { backgroundColor: theme.background, paddingTop: top }]}>
+    <View style={[styles.header, {backgroundColor: theme.background}]}>
       <TouchableOpacity onPress={() => router.back()}>
         <Ionicons name='arrow-back-circle' size={36} color={theme.textPrimary} />
       </TouchableOpacity>
@@ -98,8 +102,12 @@ const TournamentDetailPage = () => {
         <Ionicons name='trash-bin' size={24} color={theme.error} />
       </TouchableOpacity>
     </View>
-    <ScrollView contentContainerStyle={[styles.mainContainer, {backgroundColor: theme.background}]} >  
-      <View style={styles.headerContainer} >
+    <ScrollView  
+      style={styles.content} 
+      showsVerticalScrollIndicator={false}
+      contentContainerStyle={styles.scrollContent}
+    >  
+      <View style={styles.contentHeader} >
         <Text style={[styles.mainLabel, {color: theme.textPrimary, fontFamily: 'RobotoBold'}]} >{tournament?.name}</Text>
         <Text style={[styles.submainLabel, {color: theme.textSecondary, fontFamily: 'RobotoRegular'}]} >{renderDate()}</Text>
       </View>
@@ -109,7 +117,7 @@ const TournamentDetailPage = () => {
         <MatchList matches={tournamentMatches} onSelectedMatch={matchSelection} />
       </View>
     </ScrollView>
-    </>
+    </View>
   )
     
 }
@@ -117,24 +125,26 @@ const TournamentDetailPage = () => {
 export default TournamentDetailPage; 
 
 const styles = StyleSheet.create({
-  mainContainer: {
-    display: 'flex', 
-    flex: 1,  
-    gap: 30, 
-    paddingTop: 10, 
-    paddingHorizontal: 10 
+  container: {
+    flex: 1,
   },
   header: {
-    display: 'flex', 
-    paddingHorizontal: 10, 
-    flexDirection: 'row', 
-    justifyContent: 'space-between', 
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
-  }, 
-  headerContainer: {
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+  },
+  content: {
+    flex: 1,
+  },
+  scrollContent: {
+    padding: 16,
+    gap: 16,
+  },
+  contentHeader: {
     display: 'flex', 
     alignItems: 'center', 
-    textAlign: 'center', 
     marginTop: 10, 
     marginBottom: 20,
     gap: 5
@@ -144,9 +154,10 @@ const styles = StyleSheet.create({
     fontWeight: '600'
   }, 
   mainLabel: {
-    fontSize: 26, 
+    fontSize: 24,
+    textAlign: 'center', 
     fontWeight: '600', 
-    marginHorizontal: 40,
+    marginHorizontal: 20,
   }, 
   submainLabel: {
     fontSize: 16, 

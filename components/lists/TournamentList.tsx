@@ -20,24 +20,28 @@ const TorunamentCard = ({ tournament, onPress }:TournamentItemProps) => {
     const { theme } = useTheme(); 
 
     const renderDate = () => {
-        const date = new Date(tournament.date)
-        return date.toLocaleDateString('it-IT', { 
-            day: '2-digit', 
-            month: 'long', 
-            year: 'numeric' 
+        const dateToRender = new Date(Date.parse(tournament.date))
+    
+        const date = dateToRender.toLocaleDateString('it-IT', { 
+          day: '2-digit', 
+          month: 'long', 
+          year: 'numeric' 
         });
-    }
+    
+        return date === '' ? tournament.date : date; 
+      };
+      
 
     return (
         <TouchableOpacity
          onPress={() => onPress(tournament.id)} 
-         style={[styles.tournamentCard, {backgroundColor: theme.cardBackground}]}
+         style={[styles.tournamentCard]}
         >
             <View style={styles.container}>
-                <Text style={[styles.title, {color: theme.accent}]}>{tournament.name}</Text>
-                <Text style={[styles.subTitle, {color: theme.accent}]}>{renderDate()}</Text>
+                <Text style={[styles.title, {color: theme.textPrimary}]}>{tournament.name}</Text>
+                <Text style={[styles.subTitle, {color: theme.textSecondary}]}>{renderDate()}</Text>
             </View>
-            <Ionicons name='arrow-forward-circle' size={24} color={theme.accent} />
+            <Ionicons name='arrow-forward-circle' size={24} color={theme.textPrimary} />
         </TouchableOpacity>
     )
 }
@@ -74,7 +78,8 @@ const styles = StyleSheet.create({
         display: 'flex', 
         flexDirection: 'row', 
         justifyContent: 'space-between', 
-        alignItems: 'center'
+        alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0.05)',
     }, 
     container: {
         display: 'flex', 

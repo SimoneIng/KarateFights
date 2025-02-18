@@ -39,7 +39,7 @@ const CustomInput = ({ name, color, control, fieldName }: Props) => {
                 return (
                     <View style={[styles.mainContainer, {backgroundColor: theme.cardBackground}]}>
                         <View style={styles.labelContainer}>
-                            <Text style={[styles.label, {color: theme.accent}]}>{name}</Text>
+                            <Text style={[styles.label, {color: theme.textPrimary}]}>{name}</Text>
                             <Ionicons name='ellipse' color={color} size={18} />
                         </View>
                         <View style={styles.inputContainer}>
@@ -47,14 +47,14 @@ const CustomInput = ({ name, color, control, fieldName }: Props) => {
                                 style={[styles.button]} 
                                 onPress={handleSubtract}
                             >
-                                <Text style={[styles.buttonLabel, {color: theme.accent}]}>-</Text>
+                                <Text style={[styles.buttonLabel, {color: theme.textPrimary}]}>-</Text>
                             </TouchableOpacity>
-                            <Text style={[styles.inputText, {color: theme.accent}]}>{numericValue}</Text>
+                            <Text style={[styles.inputText, {color: theme.textPrimary}]}>{numericValue}</Text>
                             <TouchableOpacity 
                                 style={[styles.button]} 
                                 onPress={handleAdd}
                             >
-                                <Text style={[styles.buttonLabel, {color: theme.accent}]}>+</Text>
+                                <Text style={[styles.buttonLabel, {color: theme.textPrimary}]}>+</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
