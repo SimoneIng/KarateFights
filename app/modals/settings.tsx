@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     display: 'flex', 
     flexDirection: 'row',
     justifyContent: 'center',  
-    gap: 5
+    gap: 10
   }, 
   content: {
     flexDirection: 'row', 

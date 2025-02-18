@@ -29,21 +29,21 @@ const MatchCard = ({match, onPress}: MatchItemProps) => {
               <View style={{
                 flexDirection: 'row', gap: 2, alignItems: 'center'
               }}>
-                <Text style={[{color: theme.accent, fontFamily: 'RobotoMedium'}]}>Aka</Text>
-                <Ionicons name='ellipse' color='red' size={14} />
+                <Text style={[{color: theme.accent, fontFamily: 'RobotoMedium'}]}>Ao</Text>
+                <Ionicons name='ellipse' color='blue' size={14} />
               </View>
               <Text style={[styles.matchLabel, { color: theme.textPrimary }]}>{match.aoAthlete.firstname + " " + match.aoAthlete.lastname}</Text>
               <Text style={[styles.matchSubLabel, { color: theme.textSecondary }]}>{match.aoScore}</Text>
           </View>
           <View style={styles.matchSection}>
-          <View style={{
-                flexDirection: 'row', gap: 2, alignItems: 'center'
+              <View style={{
+                  flexDirection: 'row', gap: 2, alignItems: 'center'
               }}>
-                <Text style={[{color: theme.accent, fontFamily: 'RobotoMedium'}]}>Ao</Text>
-                <Ionicons name='ellipse' color='blue' size={14} />
+                <Text style={[{color: theme.accent, fontFamily: 'RobotoMedium'}]}>Aka</Text>
+                <Ionicons name='ellipse' color='red' size={14} />
               </View>
               <Text style={[styles.matchLabel, { color: theme.textPrimary }]}>{match.akaAthlete.firstname + " " + match.akaAthlete.lastname}</Text>
-              <Text style={[styles.matchLabel, { color: theme.textSecondary }]}>{match.akaScore}</Text>
+              <Text style={[styles.matchSubLabel, { color: theme.textSecondary }]}>{match.akaScore}</Text>
           </View>
       </TouchableOpacity>
   )
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
       width: '100%',
       overflow: 'hidden',
       backgroundColor: 'rgba(0,0,0,0.05)',
-      gap: 5
+      gap: 5, 
   }, 
   matchLabel: {
     fontSize: 14, 
@@ -96,16 +96,9 @@ const styles = StyleSheet.create({
     fontFamily: 'RobotoLight',
     marginTop: 5
   }, 
-  gradientBackground: {
-      flex: 1,
-      padding: 16,
-      flexDirection: 'row',
-      justifyContent: 'space-between',
-  },
   matchSection: {
       flex: 1,
-      justifyContent: 'space-between',
-      alignItems: 'center',
+      alignItems: 'center'
   },
   contentContainer: {
       paddingBottom: 60, 

@@ -41,7 +41,6 @@ const NewMatch = () => {
     }
 
     const handleSubmit = async (data: MatchFormData) => {
-        console.log(data)
         addMatch(data)
          .then()
          .catch(error => Alert.alert("Errore inserimento Incontro", error))

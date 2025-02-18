@@ -104,7 +104,7 @@ const MatchScreen = () => {
       year: 'numeric' 
     });
 
-    return date === '' ? match.tournament.date : date; 
+    return date === 'Invalid Date' ? match.tournament.date : date; 
   };
   
 

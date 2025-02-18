@@ -28,7 +28,7 @@ const TorunamentCard = ({ tournament, onPress }:TournamentItemProps) => {
           year: 'numeric' 
         });
     
-        return date === '' ? tournament.date : date; 
+        return date === 'Invalid Date' ? tournament.date : date; 
       };
       
 
