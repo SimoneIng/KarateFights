@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text } from 'react-native'
+import { View, StyleSheet, Text, ScrollView } from 'react-native'
 import React, { useState, useCallback, useEffect } from 'react'
 import { useTheme } from '@/context/ThemeProvider'
 import SearchBar from '@/components/commons/SearchBar';
@@ -44,7 +44,7 @@ const Matches = () => {
   } 
 
   return (
-    <View style={[styles.container, {backgroundColor: theme.background}]}>
+    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={[styles.container, {backgroundColor: theme.background}]}>
 
       <SearchBar onSearch={(searchString) => {
         filterMatches(searchString); 
@@ -58,7 +58,7 @@ const Matches = () => {
 
       <MatchList matches={filteredMatches} onSelectedMatch={handleMatchSelection} />
 
-    </View>
+    </ScrollView>
   )
 }
 

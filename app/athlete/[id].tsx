@@ -13,24 +13,21 @@ type FormData = {
 };
 
 const AthleteDetailPage = () => {
-  const { theme, isDark } = useTheme();
+  const { theme } = useTheme();
   const { athletes, updateAthlete, deleteAthlete } = useDatabaseStore();
   const { id } = useLocalSearchParams();
   const athleteId = id as string;
   const athlete = athletes.find(athlete => athlete.AthleteId === parseInt(athleteId));
   const [isEditing, setIsEditing] = useState(false);
 
-  if (!athlete) {
-    router.back();
-    return null;
-  }
-
   const { control, reset, handleSubmit } = useForm<FormData>({
     defaultValues: {
-      features: athlete.features || '',
-      tactics: athlete.tactics || '',
+      features: athlete?.features || '',
+      tactics: athlete?.tactics || '',
     }
   });
+
+    if(!athlete) return null; 
 
   const showNotification = (message: string, type: 'success' | 'danger') => {
     showMessage({
@@ -74,7 +71,7 @@ const AthleteDetailPage = () => {
               showNotification('Atleta eliminato con successo', 'success');
               router.back();
             } catch (error) {
-              showNotification('Errore durante l\'eliminazione', 'danger');
+              showNotification('Non puoi cancellare un Atleta con degli incontri', 'danger');
             }
           },
         },

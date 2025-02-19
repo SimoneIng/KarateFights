@@ -1,5 +1,5 @@
 import { View, Text, Alert, StyleSheet, TouchableOpacity, ScrollView, TextInput } from 'react-native'
-import React, { useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useTheme } from '@/context/ThemeProvider'
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { MatchWithAthletes, Match } from '@/database/types';
@@ -26,18 +26,15 @@ const MatchScreen = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [techniquesOpen, setTechniquesOpen] = useState(false);
 
-  if (!match) {
-    router.back();
-    return null;
-  }
-
   const { control, handleSubmit, reset } = useForm<FormData>({
     defaultValues: {
-      matchDescription: match.matchDescription || '',
-      aoSummary: match.aoSummary || '',
-      akaSummary: match.akaSummary || ''
+      matchDescription: match?.matchDescription || '',
+      aoSummary: match?.aoSummary || '',
+      akaSummary: match?.akaSummary || ''
     }
   });
+
+  if(!match) return null; 
 
   const showNotification = (message: string, type: 'success' | 'danger') => {
     showMessage({
@@ -201,12 +198,12 @@ const MatchScreen = () => {
         </View>
 
         <View style={styles.matchupContainer}>
+          <View style={{    flexDirection: 'row', justifyContent: 'space-around',}}>
           <View style={styles.athleteContainer}>
             <Text style={styles.akaLabel}>Aka</Text>
             <Text style={[styles.athleteName, { color: theme.textPrimary }]}>
               {match.akaAthlete.firstname} {match.akaAthlete.lastname}
             </Text>
-            <Text style={styles.score}>{match.akaScore}</Text>
           </View>
 
           <View style={styles.athleteContainer}>
@@ -214,6 +211,12 @@ const MatchScreen = () => {
             <Text style={[styles.athleteName, { color: theme.textPrimary }]}>
               {match.aoAthlete.firstname} {match.aoAthlete.lastname}
             </Text>
+          </View>
+          
+          </View>
+          
+          <View style={{ flexDirection: 'row', justifyContent: 'space-around',}}>
+            <Text style={styles.score}>{match.akaScore}</Text>
             <Text style={styles.score}>{match.aoScore}</Text>
           </View>
         </View>
@@ -339,8 +342,6 @@ const styles = StyleSheet.create({
     fontFamily: 'RobotoRegular',
   },
   matchupContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
     padding: 16,
     gap: 10, 
     backgroundColor: 'rgba(0,0,0,0.05)',
@@ -349,6 +350,7 @@ const styles = StyleSheet.create({
   },
   athleteContainer: {
     alignItems: 'center',
+    flex: 1, 
     gap: 4
   },
   athleteName: {

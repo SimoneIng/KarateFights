@@ -1,4 +1,4 @@
-import { StyleSheet, Alert, View, Text } from 'react-native'
+import { StyleSheet, Alert, View, Text, ScrollView } from 'react-native'
 import React, { useCallback, useEffect, useState, useMemo, useRef } from 'react'
 import { useTheme } from '@/context/ThemeProvider'
 import SearchBar from '@/components/commons/SearchBar';
@@ -56,7 +56,7 @@ const Tournaments = () => {
   }
 
   return (
-    <View style={[styles.container, {backgroundColor: theme.background}]}>
+    <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={[styles.container, {backgroundColor: theme.background}]}>
       
       <SearchBar onSearch={(searchString) => {
         filterTournaments(searchString); 
@@ -86,7 +86,7 @@ const Tournaments = () => {
         </BottomSheetView>
       </BottomSheetModal>
 
-    </View>
+    </ScrollView>
   )
 }
 
