@@ -12,7 +12,7 @@ const Root = () => {
     if(loading){
         return (
             <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: theme.background}}>
-                <ActivityIndicator size="large" color={theme.accent} />
+                <ActivityIndicator size="large" color={theme.textPrimary} />
             </View>
         )
     }

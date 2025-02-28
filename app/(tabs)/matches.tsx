@@ -1,9 +1,9 @@
 import { View, StyleSheet, Text, ScrollView } from 'react-native'
 import React, { useState, useCallback, useEffect } from 'react'
 import { useTheme } from '@/context/ThemeProvider'
-import SearchBar from '@/components/commons/SearchBar';
+import SearchBar from '@/components/utils/SearchBar';
 import { StatusBar } from 'expo-status-bar';
-import CustomButton from '@/components/commons/CustomButton';
+import CustomButton from '@/components/utils/CustomButton';
 import MatchList from '@/components/lists/MatchList';
 import { MatchWithAthletes } from '@/database/types';
 import { router } from 'expo-router';

@@ -2,7 +2,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, KeyboardAvoidingV
 import React, { useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { Match, Tournament, Athlete } from '@/database/types';
-import CustomInput from '../commons/CustomInput';
+import CustomInput from '../utils/CustomInput';
 import { TextInput } from 'react-native-gesture-handler';
 import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '@/context/ThemeProvider';

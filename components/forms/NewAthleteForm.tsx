@@ -11,7 +11,7 @@ import {
 import { useForm, Controller } from 'react-hook-form';
 import { useAthletes } from '@/database/hooks';
 import { useTheme } from '@/context/ThemeProvider';
-import CustomButton from '../commons/CustomButton';
+import CustomButton from '../utils/CustomButton';
 import { showMessage } from 'react-native-flash-message';
 import { Ionicons } from '@expo/vector-icons';
 import { useDatabaseStore } from '@/context/DatabaseProvider';
@@ -94,7 +94,7 @@ const NewAthleteForm = ({ onClose }: Props) => {
     >
       <View style={styles.formContainer}>
         <View>
-          <Text style={[styles.title, {color: theme.accent}]}>Nuovo Atleta</Text>
+          <Text style={[styles.title, {color: theme.textPrimary}]}>Nuovo Atleta</Text>
         </View>
         
         <View style={{gap: 20}}>

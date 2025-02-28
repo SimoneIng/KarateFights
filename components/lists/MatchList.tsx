@@ -29,7 +29,7 @@ const MatchCard = ({match, onPress}: MatchItemProps) => {
               <View style={{
                 flexDirection: 'row', gap: 2, alignItems: 'center'
               }}>
-                <Text style={[{color: theme.accent, fontFamily: 'RobotoMedium'}]}>Ao</Text>
+                <Text style={[{color: theme.textPrimary, fontFamily: 'RobotoMedium'}]}>Ao</Text>
                 <Ionicons name='ellipse' color='blue' size={14} />
               </View>
               <Text style={[styles.matchLabel, { color: theme.textPrimary }]}>{match.aoAthlete.firstname + " " + match.aoAthlete.lastname}</Text>
@@ -39,7 +39,7 @@ const MatchCard = ({match, onPress}: MatchItemProps) => {
               <View style={{
                   flexDirection: 'row', gap: 2, alignItems: 'center'
               }}>
-                <Text style={[{color: theme.accent, fontFamily: 'RobotoMedium'}]}>Aka</Text>
+                <Text style={[{color: theme.textPrimary, fontFamily: 'RobotoMedium'}]}>Aka</Text>
                 <Ionicons name='ellipse' color='red' size={14} />
               </View>
               <Text style={[styles.matchLabel, { color: theme.textPrimary }]}>{match.akaAthlete.firstname + " " + match.akaAthlete.lastname}</Text>

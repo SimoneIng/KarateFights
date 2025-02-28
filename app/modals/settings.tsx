@@ -4,7 +4,7 @@ import { useTheme } from '@/context/ThemeProvider'
 import { useSession } from '@/context/SessionProvider'
 import { StatusBar } from 'expo-status-bar'
 import { Ionicons } from '@expo/vector-icons'
-import CustomButton from '@/components/commons/CustomButton'
+import CustomButton from '@/components/utils/CustomButton'
 
 const Profile = () => {
   

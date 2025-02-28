@@ -6,7 +6,7 @@ import { useTheme } from '@/context/ThemeProvider';
 import MatchList from '@/components/lists/MatchList';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
-import CustomButton from '@/components/commons/CustomButton';
+import CustomButton from '@/components/utils/CustomButton';
 import { showMessage } from 'react-native-flash-message';
 import { useDatabaseStore } from '@/context/DatabaseProvider';
 

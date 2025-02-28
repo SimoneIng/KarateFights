@@ -11,7 +11,7 @@ import {
 import { useTournaments } from '@/database/hooks';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
 import { Ionicons } from '@expo/vector-icons';
-import CustomButton from '../commons/CustomButton';
+import CustomButton from '../utils/CustomButton';
 import { useTheme } from '@/context/ThemeProvider';
 import { showMessage } from 'react-native-flash-message';
 import { useDatabaseStore } from '@/context/DatabaseProvider';
@@ -94,7 +94,7 @@ const NewTournamentForm: React.FC<Props> = ({ onClose }) => {
       <View style={styles.formContainer}>
           
         <View style={{gap: 20}}>
-          <Text style={[styles.title, {color: theme.accent}]}>Nuova Gara</Text>
+          <Text style={[styles.title, {color: theme.textPrimary}]}>Nuova Gara</Text>
         </View>
           
           <View>

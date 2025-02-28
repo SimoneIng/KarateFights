@@ -1,20 +1,23 @@
 {
   "expo": {
-    "name": "Karate Fightings",
+    "name": "Kumite Tracker",
     "slug": "Karate-Fightings",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
+    "icon": "./assets/icons/ios-icon.png",
     "scheme": ["karatefightings"],
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.simoreactdev.KarateFightings"
+      "bundleIdentifier": "com.simoreactdev.KarateFightings",
+      "icon": {
+        "light": "./assets/icons/ios-icon.png"
+      }
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/icons/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.simoreactdev.KarateFightings"
@@ -29,8 +32,9 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash-icon.png",
-          "resizeMode": "cover",
+          "image": "./assets/icons/splash-icon.png",
+          "imageWidth": 200, 
+          "resizeMode": "contain", 
           "backgroundColor": "#ffffff"
         }
       ],

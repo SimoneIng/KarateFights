@@ -15,7 +15,7 @@ interface ThemeColors {
     background: "#F5F7FA",  // Sfondo più morbido per ridurre l'affaticamento visivo
     primary: "#3D5A80",     // Mantiene il primario originale
     secondary: "#6497C6",   // Un blu più equilibrato per una migliore armonia
-    accent: "#1B2A41",      // Accent leggermente più chiaro per un miglior contrasto
+    accent: "#155dfc",      // Accent leggermente più chiaro per un miglior contrasto
     textPrimary: "#1E2A38", // Testo più scuro per migliorare la leggibilità
     textSecondary: "rgba(30, 42, 56, 0.7)", // Adattato al nuovo testo primario
     cardBackground: "#E1ECF5", // Sfondo delle card più chiaro per un effetto più pulito

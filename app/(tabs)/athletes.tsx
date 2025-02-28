@@ -1,11 +1,11 @@
 import { View, StyleSheet, ScrollView } from 'react-native'
 import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react'
 import { useTheme } from '@/context/ThemeProvider'
-import SearchBar from '@/components/commons/SearchBar';
+import SearchBar from '@/components/utils/SearchBar';
 import AthletesList from '@/components/lists/AthleteList';
 import { router } from 'expo-router';
 import { Athlete } from '@/database/types';
-import CustomButton from '@/components/commons/CustomButton';
+import CustomButton from '@/components/utils/CustomButton';
 import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet'; 
 import NewAthleteForm from '@/components/forms/NewAthleteForm'; 
 import { useDatabaseStore } from '@/context/DatabaseProvider';

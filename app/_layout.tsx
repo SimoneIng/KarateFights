@@ -8,10 +8,10 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import AthleteHeader from '@/components/headers/AthleteHeader';
 import FlashMessage from "react-native-flash-message";
-import { ActivityIndicator, Alert, View } from 'react-native';
+import { ActivityIndicator, Alert, View, Text } from 'react-native';
 import { useDatabaseStore } from '@/context/DatabaseProvider';
 import SettingsHeader from '@/components/headers/SettingsHeader';
-import * as Updates from 'expo-updates'; 
+import useUpdates from '@/hooks/useUpdates';
 
 SplashScreen.preventAutoHideAsync(); 
 
@@ -76,8 +76,8 @@ const StackLayout = () => {
 const RootLayout = () => {
 
   const { fetchAthletes, fetchMatches, fetchTournaments } = useDatabaseStore()
-  const [isCheckingUpdate, setIsCheckingUpdate] = useState(false);
   const { theme } = useTheme(); 
+  const { checkForUpdates, isCheckingUpdate, updateError } = useUpdates(); 
 
   const [loaded] = useFonts({
     'RobotoExtraLight': require('../assets/fonts/RobotoMono-ExtraLight.ttf'),  
@@ -87,36 +87,9 @@ const RootLayout = () => {
     'RobotoBold': require('../assets/fonts/RobotoMono-Bold.ttf'), 
   }); 
 
-  async function checkForUpdates() {
-    try {
-      const update = await Updates.checkForUpdateAsync();
-      
-      if (update.isAvailable) {
-        await Updates.fetchUpdateAsync();
-        // Riavvia l'app per applicare l'aggiornamento
-        await Updates.reloadAsync();
-      }
-    } catch (error) {
-      // Gestione degli errori
-      console.error('Errore durante il controllo degli aggiornamenti:', error);
-    }
-  }
-
   useEffect(() => {
-    async function checkUpdate() {
-      setIsCheckingUpdate(true);
-      try {
-        // Verifica se siamo in modalità development
-        if (!__DEV__) {
-          await checkForUpdates();
-        }
-      } finally {
-        setIsCheckingUpdate(false);
-      }
-    }
-    
-    checkUpdate();
-}, []);
+    if (!__DEV__) checkForUpdates();
+  }, []);
 
   useEffect(() => {
     const setupDatabase = async () => {
@@ -146,9 +119,17 @@ const RootLayout = () => {
     return (
       // Mostra un loader o splash screen mentre verifica gli aggiornamenti
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size="large" color={theme.primary} />
+        <ActivityIndicator size="large" color={theme.textPrimary} />
       </View>
     );
+  }
+
+  if(updateError) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text style={{ fontSize: 21, textAlign: 'center' }}>Errore durante l'aggiornamento: {updateError}</Text>
+      </View>
+    )
   }
 
   return (

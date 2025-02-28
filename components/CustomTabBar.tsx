@@ -43,7 +43,7 @@ const CustomTabBar = ({ state, descriptors, navigation }: BottomTabBarProps) => 
             key={route.key}
             onPress={onPress}
             style={[styles.tabButton, 
-              isFocused && [styles.tabButtonFocused, {backgroundColor: theme.accent}]
+              isFocused && [styles.tabButtonFocused, {backgroundColor: theme.textPrimary}]
             ]}
           >
             <Ionicons

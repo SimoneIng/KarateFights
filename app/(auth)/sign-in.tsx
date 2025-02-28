@@ -32,9 +32,8 @@ const SignIn = () => {
     try {
       await login(data.firstname, data.lastname); 
 
-      addAthlete(data.firstname, data.lastname).then(() => {
-
-      }).catch(err => Alert.alert("Errore nella Registrazione", err)); 
+      addAthlete(data.firstname, data.lastname)
+       .catch(err => Alert.alert("Errore nella Registrazione", err)); 
 
       router.replace('/'); 
     } catch (error) {
@@ -46,7 +45,12 @@ const SignIn = () => {
     <View style={[styles.container, { backgroundColor: theme.background }]}>
   
       <View style={styles.titleContainer}>
-        <Text style={[styles.titleText, { color: theme.accent }]}>KarateLogs</Text>
+        <Text style={[styles.titleText, { color: theme.textPrimary }]}>Kumite</Text>
+        <Text style={[styles.titleText, { color: theme.accent }]}>Tracker</Text>
+      </View>
+
+      <View style={[styles.subHeader]}>
+        <Text style={[styles.text]}>An app to track athletes, and fights stats.</Text>
       </View>
 
 
@@ -72,7 +76,7 @@ const SignIn = () => {
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
-                placeholder="Inserisci nome"
+                placeholder=""
                 placeholderTextColor={theme.textSecondary}
               />
             )}
@@ -106,7 +110,7 @@ const SignIn = () => {
                 onBlur={onBlur}
                 onChangeText={onChange}
                 value={value}
-                placeholder="Inserisci cognome"
+                placeholder=""
                 placeholderTextColor={theme.textSecondary}
               />
             )}
@@ -127,7 +131,7 @@ const SignIn = () => {
           ]}
           disabled={isSubmitting}
         >
-          <Text style={[styles.buttonText, { color: theme.accent }]}>
+          <Text style={[styles.buttonText, { color: theme.textPrimary }]}>
             {isSubmitting ? 'Accesso in corso...' : 'Accedi'}
           </Text>
         </TouchableOpacity>
@@ -146,9 +150,14 @@ const styles = StyleSheet.create({
   }, 
   titleContainer: {
     marginBottom: 20, 
-    flexDirection: 'column', 
+    flexDirection: 'row', 
     alignItems: 'center', 
+    justifyContent: 'center',
     gap: 5 
+  }, 
+  subHeader: {
+    marginBottom: 30, 
+
   }, 
   text: {
     fontSize: 14, 
@@ -160,7 +169,7 @@ const styles = StyleSheet.create({
     gap: 10
   }, 
   titleText: {
-    fontSize: 42,  
+    fontSize: 36,  
     fontFamily: 'RobotoBold'
   }, 
   textLabel: {

@@ -1,9 +1,9 @@
 import { StyleSheet, Alert, View, Text, ScrollView } from 'react-native'
 import React, { useCallback, useEffect, useState, useMemo, useRef } from 'react'
 import { useTheme } from '@/context/ThemeProvider'
-import SearchBar from '@/components/commons/SearchBar';
+import SearchBar from '@/components/utils/SearchBar';
 import { StatusBar } from 'expo-status-bar';
-import CustomButton from '@/components/commons/CustomButton';
+import CustomButton from '@/components/utils/CustomButton';
 import { Tournament } from '@/database/types';
 import { useTournaments } from '@/database/hooks';
 import TournamentList from '@/components/lists/TournamentList';
